@@ -8,7 +8,7 @@ import math
 from astropy.cosmology import WMAP9 as cosmo
 from queryPackage.SDSSQuery import SDSSQuery
 
-class ComputeSDSSData:
+class RecedingVelocity:
     
     def __init__(self, searchArea, radiusMultiplier):
         self.queryResult = SDSSQuery()
@@ -41,14 +41,8 @@ class ComputeSDSSData:
                 self.velocity.append(v)
                 self.objectID.append(self.objID[i])
             else:
-                #hubbleConstant = cosmo.H(self.redshift[i])
                 hubbleConstant = cosmo.H(0)
-                print("Ho", hubbleConstant)
-                lumDist = cosmo.luminosity_distance(self.redshift[i])
-                print("Luminosity Distance: ", lumDist)
-                #hubbleDistance = (self.c / lumDist)
                 hubbleDistance = (self.c / hubbleConstant) * math.log1p(1 + self.redshift[i])
-                print("Hubble Distance: ", hubbleDistance)
                 v = hubbleConstant * hubbleDistance
                 self.velocity.append(v)
                 self.objectID.append(self.objID[i])
@@ -69,9 +63,9 @@ class ComputeSDSSData:
 
 
 """
-Test ComputeSDSSData Class Implementation
+Test RecedingVelocity Class Implementation
 """ 
-target1 = ComputeSDSSData('0h8m05.63s +14d50m23.3s', 4)
+target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 4)
 target1.getID_Redshift()
 target1.computeVelocity()
 target1.velocityVsSpeedOfLight(1237652943176139448)

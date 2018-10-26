@@ -23,5 +23,5 @@ class SDSSQuery:
 """
 Test SDSSQuery Class Implementation
 """
-target1 = SDSSQuery()
-target1.queryObject('0h8m05.63s +14d50m23.3s', 4)
+#target1 = SDSSQuery()
+#target1.queryObject('0h8m05.63s +14d50m23.3s', 4)
