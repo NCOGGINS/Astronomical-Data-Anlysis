@@ -4,7 +4,6 @@ Created on Oct 26, 2018
 @author: Matthew Peek
 @change: 26 October 2018
 '''
-from astropy import units as u
 from queryPackage.SDSSQuery import SDSSQuery
 from astropy.cosmology import WMAP9 as cosmo
 

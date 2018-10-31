@@ -10,10 +10,18 @@ from astropy import coordinates as coords
 from astropy.units import arcmin
 
 class SDSSQuery:
-    
+    """
+    SDSS Query constructor.
+    """
     def __init__(self):
         warnings.filterwarnings('ignore')
         
+    """
+    Query Object function queries CAS and returns results according to search area.
+    @param param: search area in hour, minute, seconds format
+    @param param: int expands search area by multiplying with arcminutes
+    @return: query result in tabular format  
+    """
     def queryObject(self, searchArea, radiusMultiplier):
         position = coords.SkyCoord(str(searchArea), frame='icrs')        
         self.result = SDSS.query_region(position, radius=radiusMultiplier*arcmin, spectro=True)

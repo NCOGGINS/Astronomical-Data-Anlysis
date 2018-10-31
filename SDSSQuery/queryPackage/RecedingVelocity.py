@@ -10,6 +10,13 @@ from queryPackage.SDSSQuery import SDSSQuery
 
 class RecedingVelocity:
     
+    """
+    Receding Velocity constructor. Instantiates SDSSQuery class, query's object and gets
+    query results.
+    
+    @param param: search area in hour, minute, seconds format
+    @param param: int expands search area by multiplying with arcminutes  
+    """
     def __init__(self, searchArea, radiusMultiplier):
         self.queryResult = SDSSQuery()
         self.result = self.queryResult.queryObject(searchArea, radiusMultiplier)
@@ -18,7 +25,12 @@ class RecedingVelocity:
         self.velocity = []
         self.objectID = []
         self.c = 300000 #km/s
-        
+    
+    """
+    GetID_Redshift function gets query results and appends object id's and redshifts to lists.
+    
+    @return: list of object id's & redshifts
+    """ 
     def getID_Redshift(self):      
         for i in range(0, len(self.result)):
             self.objID.append(self.result[i]['objid'])
@@ -31,6 +43,12 @@ class RecedingVelocity:
         
         return self.objID, self.redshift
     
+    """
+    Compute Velocity function goes through object id and redshift lists and calculates
+    recessional velocity. Prints object id and velocity.
+    
+    @return: list of object id's and velocities.
+    """
     def computeVelocity(self):
         #Calculate speed at which galaxies are moving away from us.
         #For redshifts < 1 use equation velocity = (speed of light) * (redshift)
@@ -52,6 +70,12 @@ class RecedingVelocity:
 
         return self.objectID, self.velocity
     
+    """
+    Velocity Vs Speed of Light function finds how velocity of object is traveling
+    at the speed of light. prints out the object's id and percentage at speed of light.
+    
+    @param param: Object ID to calculate 
+    """
     def velocityVsSpeedOfLight(self, targetID):
         for i in range(0, len(self.objectID)):
             if (self.objectID[i] == targetID):
