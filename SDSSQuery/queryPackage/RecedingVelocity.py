@@ -2,9 +2,11 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 26 October 2018
+@change: 1 November 2018
 '''
 import math
+import numpy as np
+from matplotlib import pyplot as plt
 from astropy.cosmology import WMAP9 as cosmo
 from queryPackage.SDSSQuery import SDSSQuery
 
@@ -25,6 +27,7 @@ class RecedingVelocity:
         self.velocity = []
         self.objectID = []
         self.c = 300000 #km/s
+    #End Constructor
     
     """
     GetID_Redshift function gets query results and appends object id's and redshifts to lists.
@@ -42,6 +45,7 @@ class RecedingVelocity:
                 print ("Object with redshift greater than 3: ", self.objID[i],'\n')
         
         return self.objID, self.redshift
+    #End getID_Redshift function
     
     """
     Compute Velocity function goes through object id and redshift lists and calculates
@@ -69,6 +73,7 @@ class RecedingVelocity:
             print ("Object: " + str(self.objectID[i]) + " Velocity: " + str(self.velocity[i]) + " km/s")
 
         return self.objectID, self.velocity
+    #End computeVelocity function
     
     """
     Velocity Vs Speed of Light function finds how velocity of object is traveling
@@ -84,14 +89,30 @@ class RecedingVelocity:
         vPerSpeedOfLight = (objectVelocity / self.c) * 100
         print ("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
                + " % the speed of light", '\n') 
+    #End velocityVsSpeedOfLight function
+    
+    """
+    Plot Velocity function produces a scatter plot of object's redshifts vs. velocities.
+    Uses lists of redshifts and velocities, draws quadratic line showing growth.
+    """    
+    def plotVelocity(self):
+        plt.scatter(self.redshift, self.velocity)
+        plt.plot(np.unique(self.redshift), np.poly1d(np.polyfit(self.redshift, self.velocity, 3))
+                 (np.unique(self.redshift)), c='r')
+        plt.xlabel('Object Redshift')
+        plt.ylabel('Object Velocity')
+        plt.show()
+    #End plotVelocity function    
+        
 
 
 """
 Test RecedingVelocity Class Implementation
 """ 
-target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 4)
+target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 10)
 target1.getID_Redshift()
 target1.computeVelocity()
 target1.velocityVsSpeedOfLight(1237652943176139448)
+target1.plotVelocity()
   
         

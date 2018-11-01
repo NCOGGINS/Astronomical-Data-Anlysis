@@ -2,7 +2,7 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 26 October 2018
+@change: 1 November 2018
 '''
 import warnings
 from astroquery.sdss import SDSS
