@@ -2,7 +2,7 @@
 Created on Oct 26, 2018
 
 @author: Matthew Peek
-@change: 26 October 2018
+@change: 2 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from astropy.cosmology import WMAP9 as cosmo
@@ -10,8 +10,8 @@ from astropy.cosmology import WMAP9 as cosmo
 class LuminosityDistance:
     
     def __init__(self, searchArea, radiusMultiplier):
-        self.queryResults = SDSSQuery()
-        self.result = self.queryResults.queryObject(searchArea, radiusMultiplier)
+        self.query = SDSSQuery(searchArea, radiusMultiplier)
+        self.result = self.query.queryResult()
         self.objID = []
         self.redshift = []
     

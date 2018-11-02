@@ -2,7 +2,7 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 1 November 2018
+@change: 2 November 2018
 '''
 import warnings
 from astroquery.sdss import SDSS
@@ -11,25 +11,29 @@ from astropy.units import arcmin
 
 class SDSSQuery:
     """
-    SDSS Query constructor.
+    SDSS Query constructor. Sets up search area by user defined search area in 
+    hour, minute, second format and search cone size. 
+    
+    Queries data and stores in variable named 'result'.
     """
-    def __init__(self):
+    def __init__(self, searchArea, radiusMultiplier):
         warnings.filterwarnings('ignore')
-        
-    """
-    Query Object function queries CAS and returns results according to search area.
-    @param param: search area in hour, minute, seconds format
-    @param param: int expands search area by multiplying with arcminutes
-    @return: query result in tabular format  
-    """
-    def queryObject(self, searchArea, radiusMultiplier):
         position = coords.SkyCoord(str(searchArea), frame='icrs')        
         self.result = SDSS.query_region(position, radius=radiusMultiplier*arcmin, spectro=True)
+    #End SDSSQuery constructor
+    
+    """
+    Query Result function gets the query result from the constructor and returns it.
+    
+    @return: query result
+    """
+    def queryResult(self):
         print(self.result)
         return self.result
+    #End queryResult function    
     
 """
 Test SDSSQuery Class Implementation
 """
-#target1 = SDSSQuery()
-#target1.queryObject('0h8m05.63s +14d50m23.3s', 4)
+#target1 = SDSSQuery('0h8m05.63s +14d50m23.3s', 4)
+#target1.queryResult()
