@@ -2,8 +2,9 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 3 November 2018
+@change: 4 November 2018
 '''
+import sys
 import warnings
 from astroquery.sdss import SDSS
 from astropy import coordinates as coords
@@ -29,11 +30,12 @@ class SDSSQuery:
     """
     def queryResult(self):
         print(self.result)
+        sys.stdout.flush()
         return self.result
     #End queryResult function    
     
 """
 Test SDSSQuery Class Implementation
 """
-#target1 = SDSSQuery('0h8m05.63s +14d50m23.3s', 4)
-#target1.queryResult()
+target1 = SDSSQuery('0h8m05.63s +14d50m23.3s', 4)
+target1.queryResult()
