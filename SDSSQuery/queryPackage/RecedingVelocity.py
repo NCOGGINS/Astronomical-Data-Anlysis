@@ -2,8 +2,9 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 2 November 2018
+@change: 6 November 2018
 '''
+import sys
 import math
 import numpy as np
 from matplotlib import pyplot as plt
@@ -30,28 +31,33 @@ class RecedingVelocity:
     #End Constructor
     
     """
-    GetID_Redshift function gets query results and appends object id's and redshifts to lists.
+    GetID function gets query results and appends object ID's to list.
     
-    @return: list of object id's & redshifts
+    @return: list of object id's
     """ 
-    def getID_Redshift(self):      
+    def getID(self):      
         for i in range(0, len(self.result)):
-            self.objID.append(self.result[i]['objid'])
-            self.redshift.append(self.result[i]['z'])
-            print ("Redshift: ", self.result[i]['z'])
+            self.objID.append(self.result[i]['objid'])   
+                 
+        return self.objID
+    #End getID function
     
-        for i in range(0, len(self.objID)):
-            if (self.redshift[i] > 3.0):
-                print ("Object with redshift greater than 3: ", self.objID[i],'\n')
-        
-        return self.objID, self.redshift
-    #End getID_Redshift function
+    """
+    GetRedshift function gets query results and appends redshifts to list.
+    
+    @return: list of object redshifts.
+    """
+    def getRedshift(self):
+        for i in range(0, len(self.result)):
+            self.redshift.append(self.result[i]['z'])
+            print("Redshift: ", self.result[i]['z'])
+            
+        return self.redshift
+    #End getRedshift function
     
     """
     Compute Velocity function goes through object id and redshift lists and calculates
     recessional velocity. Prints object id and velocity.
-    
-    @return: list of object id's and velocities.
     """
     def computeVelocity(self):
         #Calculate speed at which galaxies are moving away from us.
@@ -59,20 +65,20 @@ class RecedingVelocity:
         #Otherwise use velocity = Hubble constant * proper distance
         for i in range(0, len(self.redshift)):
             if (self.redshift[i] < 1):
-                v = self.c * (self.redshift[i])
-                self.velocity.append(v)
+                velocity = self.c * (self.redshift[i])
+                self.velocity.append(velocity)
                 self.objectID.append(self.objID[i])
             else:
                 hubbleConstant = cosmo.H(0)
                 hubbleDistance = (self.c / hubbleConstant) * math.log1p(1 + self.redshift[i])
-                v = hubbleConstant * hubbleDistance
-                self.velocity.append(v)
+                velocity = hubbleConstant * hubbleDistance
+                self.velocity.append(velocity)
                 self.objectID.append(self.objID[i])
         
         for i in range(0, len(self.objectID)):
             print ("Object: " + str(self.objectID[i]) + " Velocity: " + str(self.velocity[i]) + " km/s")
 
-        return self.objectID, self.velocity
+        sys.stdout.flush()
     #End computeVelocity function
     
     """
@@ -85,10 +91,11 @@ class RecedingVelocity:
         for i in range(0, len(self.objectID)):
             if (self.objectID[i] == targetID):
                 objectVelocity = self.velocity[i]
-        #Find how much object: 1237652943176139448 is moving at speed of light
+        #Find how much object: 1237652943176204753 is moving at speed of light
         vPerSpeedOfLight = (objectVelocity / self.c) * 100
         print ("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
                + " % the speed of light", '\n') 
+        sys.stdout.flush()
     #End velocityVsSpeedOfLight function
     
     """
@@ -102,17 +109,19 @@ class RecedingVelocity:
         plt.xlabel('Object Redshift')
         plt.ylabel('Object Velocity')
         plt.show()
+        sys.stdout.flush()
     #End plotVelocity function    
         
 
 
 """
 Test RecedingVelocity Class Implementation
-""" 
+"""
 target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 10)
-target1.getID_Redshift()
+target1.getID()
+target1.getRedshift()
 target1.computeVelocity()
-target1.velocityVsSpeedOfLight(1237652943176139448)
+target1.velocityVsSpeedOfLight(1237652943176204753)
 target1.plotVelocity()
   
         
