@@ -2,7 +2,7 @@
 Created on Oct 26, 2018
 
 @author: Matthew Peek
-@change: 6 November 2018
+@change: 7 November 2018
 '''
 import sys
 from queryPackage.SDSSQuery import SDSSQuery
@@ -55,7 +55,6 @@ class LuminosityDistance:
                     print()
                     print("Luminosity Distance:", lumDist)
                     sys.stdout.flush()
-        
         else:
             print()
             print(objectID, "is not in query results.")

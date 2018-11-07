@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 6 November 2018
+@change: 7 November 2018
 '''
 import sys
 import math
@@ -77,25 +77,29 @@ class RecedingVelocity:
         
         for i in range(0, len(self.objectID)):
             print ("Object: " + str(self.objectID[i]) + " Velocity: " + str(self.velocity[i]) + " km/s")
-
-        sys.stdout.flush()
     #End computeVelocity function
     
     """
     Velocity Vs Speed of Light function finds how velocity of object is traveling
     at the speed of light. prints out the object's id and percentage at speed of light.
     
-    @param param: Object ID to calculate 
+    
+    @param param: Object ID to calculate. If object ID is not contained in the query,
+    prints out error message. 
     """
     def velocityVsSpeedOfLight(self, targetID):
-        for i in range(0, len(self.objectID)):
-            if (self.objectID[i] == targetID):
-                objectVelocity = self.velocity[i]
-        #Find how much object: 1237652943176204753 is moving at speed of light
-        vPerSpeedOfLight = (objectVelocity / self.c) * 100
-        print ("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
-               + " % the speed of light", '\n') 
-        sys.stdout.flush()
+        vPerSpeedOfLight = 0
+        if (targetID in self.objectID):
+            for i in range(0, len(self.objectID)):
+                if (self.objectID[i] == targetID):
+                    objectVelocity = self.velocity[i]
+                    vPerSpeedOfLight = (objectVelocity / self.c) * 100
+            print()
+            print("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
+                   + " % the speed of light", '\n') 
+        else:
+            print()
+            print(targetID, "is not in query results.")
     #End velocityVsSpeedOfLight function
     
     """
@@ -109,19 +113,41 @@ class RecedingVelocity:
         plt.xlabel('Object Redshift')
         plt.ylabel('Object Velocity')
         plt.show()
-        sys.stdout.flush()
     #End plotVelocity function    
-        
-
+    
+    """
+    RunRecedingVelocity function calls getID, getRedshift, computeVelocity, and
+    plotVelocity functions and runs them. sys.stdout.flush() sends output to
+    node.js for html display.
+    """
+    def runRecedingVelocity(self):
+        self.getID()
+        self.getRedshift()
+        self.computeVelocity()
+        self.plotVelocity()
+        sys.stdout.flush()
+    #End runRecedingVelocity function
+    
+    """
+    RunSpeedLightPercent function calls velocityVsSpeedOfLight function and runs it.
+    sys.stdout.flush() sends output to node.js for html display.
+    
+    @param param: object ID to compute. 
+    """
+    def runSpeedLightPercent(self, targetID):
+        self.velocityVsSpeedOfLight(targetID)
+        sys.stdout.flush()
+    #End runSpeedLightPercent function
+            
 
 """
 Test RecedingVelocity Class Implementation
-"""
+
 target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 10)
 target1.getID()
 target1.getRedshift()
 target1.computeVelocity()
 target1.velocityVsSpeedOfLight(1237652943176204753)
 target1.plotVelocity()
-  
+"""
         
