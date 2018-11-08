@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 7 November 2018
+@change: 8 November 2018
 '''
 import sys
 import math
@@ -20,8 +20,8 @@ class RecedingVelocity:
     @param param: search area in hour, minute, seconds format
     @param param: int expands search area by multiplying with arcminutes  
     """
-    def __init__(self, searchArea, radiusMultiplier):
-        self.query = SDSSQuery(searchArea, radiusMultiplier)
+    def __init__(self, lat, long, radiusMultiplier):
+        self.query = SDSSQuery(lat, long, radiusMultiplier)
         self.result = self.query.queryResult() 
         self.objID = []
         self.redshift = []

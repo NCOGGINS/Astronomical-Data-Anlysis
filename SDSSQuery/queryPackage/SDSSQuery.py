@@ -2,34 +2,61 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 4 November 2018
+@change: 8 November 2018
 '''
 import sys
 import warnings
 from astroquery.sdss import SDSS
-from astropy import coordinates as coords
 from astropy.units import arcmin
+from astropy import coordinates as coords
 
 class SDSSQuery:
     """
-    SDSS Query constructor. Sets up search area by user defined search area in 
-    hour, minute, second format and search cone size. 
+    SDSS Query constructor. Sets up search area by user defined 
+    latitude and longitute in decimal degree format, and search cone size. 
     
-    Queries data and stores in variable named 'result'.
+    Queries data and stores in variable named 'result'. Loop goes through
+    result appending ra's and dec's to lists for spectro query.
+    
+    @param param: latitude in decimal degree format.
+    @param param: longitude in decimal degree format.
+    @param param: int to multiply with arcminutes. Expands search area size.   
     """
-    def __init__(self, searchArea, radiusMultiplier):
+    def __init__(self, lat, long, radiusMultiplier):
         warnings.filterwarnings('ignore')
-        position = coords.SkyCoord(str(searchArea), frame='icrs')        
-        self.result = SDSS.query_region(position, radius=radiusMultiplier*arcmin, spectro=True)
+        self.rad = radiusMultiplier * arcmin
+        self.position = coords.SkyCoord(lat, long, frame='icrs', unit='deg')        
+        self.result = SDSS.query_region(self.position, radius=self.rad, spectro=True)
+        
+        self.ra = []
+        self.dec = []
+        for i in range(0, len(self.result)):
+            self.ra.append(self.result[i]['ra'])
+            self.dec.append(self.result[i]['dec'])   
     #End SDSSQuery constructor
     
     """
-    Query Result function gets the query result from the constructor and returns it.
-    
-    @return: query result
+    QuerySpectra function starts loop appending sky coordinates from ra's and dec's.
+    Gets the spectra for objects found with coordinates module.
+    @return: query spectra.
+    """
+    def querySpectra(self):
+        co = []
+        for i in range(0, len(self.ra)):
+            co.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
+        self.spectra = SDSS.query_crossid(co, photoobj_fields=['modelMag_g', 'modelMag_r'])
+        
+        print(self.spectra)
+        sys.stdout.flush()
+        return self.spectra
+    #End querySpectra function
+        
+    """
+    Query Result function gets the query result from the constructor and returns it.  
+    @return: query result.
     """
     def queryResult(self):
-        print(self.result)
+        print(self.result,'\n')
         sys.stdout.flush()
         return self.result
     #End queryResult function    
@@ -37,5 +64,7 @@ class SDSSQuery:
 """
 Test SDSSQuery Class Implementation
 """
-#target1 = SDSSQuery('0h8m05.63s +14d50m23.3s', 4)
+#target1 = SDSSQuery(143.50993, 55.239775, 4)
 #target1.queryResult()
+#target1.querySpectra()
+
