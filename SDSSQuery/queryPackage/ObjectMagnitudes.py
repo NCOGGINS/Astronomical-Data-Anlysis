@@ -2,7 +2,7 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 8 November 2018
+@change: 9 November 2018
 '''
 import sys
 import numpy as np
@@ -11,6 +11,14 @@ from queryPackage.SDSSQuery import SDSSQuery
 
 class ObjectMagnitudes:
     
+    """
+    ObjectMagnitude constructor. Instantiates SDSSQuery class, runs spectra query
+    and get results. Argument order latitude, longitude, num.
+    
+    @param param: latitude in decimal degree format.
+    @param param: longitude in decimal degree format. 
+    @param param: int expands search area by multiplying with arcminutes.
+    """
     def __init__(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
         self.result = self.query.querySpectra()
@@ -19,18 +27,31 @@ class ObjectMagnitudes:
         self.rFilter = []
     #End ObjectMagnitude constructor
     
+    """
+    GetGFilter function looks in query result and gets modelMag_g column.
+    @return: list of g filter values.
+    """
     def getGFilter(self):
         for i in range(0, len(self.result)):
             self.gFilter.append(self.result[i]['modelMag_g'])
         return self.gFilter
     #End getGFilter function
     
+    """
+    GetRFilter function looks in query result and gets modelMag_r column.
+    @return: list of r filter values.
+    """
     def getRFilter(self):
         for i in range(0, len(self.result)):
             self.rFilter.append(self.result[i]['modelMag_r'])
         return self.rFilter
     #End getRFilter function
     
+    """
+    GetObjectColors function subtracts every value in g filter list from every value
+    in r filter list to obtain an objects color.
+    @return: list of object's color in magnitude.
+    """
     def getObjectColors(self):
         self.getGFilter()
         self.getRFilter()

@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 8 November 2018
+@change: 9 November 2018
 '''
 import sys
 import math
@@ -15,9 +15,10 @@ class RecedingVelocity:
     
     """
     Receding Velocity constructor. Instantiates SDSSQuery class, query's object and gets
-    query results.
+    query results. Argument order latitude, longitude, num.
     
-    @param param: search area in hour, minute, seconds format
+    @param param: latitude in decimal degree format.
+    @param param: longitude in decimal degree format.
     @param param: int expands search area by multiplying with arcminutes  
     """
     def __init__(self, latitude, longitude, radiusMultiplier):

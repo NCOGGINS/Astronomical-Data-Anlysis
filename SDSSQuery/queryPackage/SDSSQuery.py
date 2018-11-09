@@ -2,7 +2,7 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 8 November 2018
+@change: 9 November 2018
 '''
 import sys
 import warnings
@@ -13,7 +13,8 @@ from astropy import coordinates as coords
 class SDSSQuery:
     """
     SDSS Query constructor. Sets up search area by user defined 
-    latitude and longitute in decimal degree format, and search cone size. 
+    latitude and longitute in decimal degree format, and search cone size.
+    Order of arguments latitude, longitude, and radiusMultiplier. 
     
     Queries data and stores in variable named 'result'. Loop goes through
     result appending ra's and dec's to lists for spectro query.

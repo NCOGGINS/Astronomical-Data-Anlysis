@@ -2,7 +2,7 @@
 Created on Oct 26, 2018
 
 @author: Matthew Peek
-@change: 8 November 2018
+@change: 9 November 2018
 '''
 import sys
 from queryPackage.SDSSQuery import SDSSQuery
@@ -12,10 +12,11 @@ class LuminosityDistance:
     
     """
     Luminosity  Distance constructor. Instantiates SDSSQuery class, query's object and gets
-    query results.
+    query results. Argument order latitude, longitude, num.
     
-    @param param: search area in hour, minute, seconds format
-    @param param: int expands search area by multiplying with arcminutes  
+    @param param: latitude in decimal degree format.
+    @param param: longitude in decimal degree format. 
+    @param param: int expands search area by multiplying with arcminutes.  
     """
     def __init__(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
