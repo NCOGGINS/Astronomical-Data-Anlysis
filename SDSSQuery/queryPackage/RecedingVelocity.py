@@ -20,8 +20,8 @@ class RecedingVelocity:
     @param param: search area in hour, minute, seconds format
     @param param: int expands search area by multiplying with arcminutes  
     """
-    def __init__(self, lat, long, radiusMultiplier):
-        self.query = SDSSQuery(lat, long, radiusMultiplier)
+    def __init__(self, latitude, longitude, radiusMultiplier):
+        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
         self.result = self.query.queryResult() 
         self.objID = []
         self.redshift = []
@@ -37,8 +37,7 @@ class RecedingVelocity:
     """ 
     def getID(self):      
         for i in range(0, len(self.result)):
-            self.objID.append(self.result[i]['objid'])   
-                 
+            self.objID.append(self.result[i]['objid'])                    
         return self.objID
     #End getID function
     
@@ -51,7 +50,6 @@ class RecedingVelocity:
         for i in range(0, len(self.result)):
             self.redshift.append(self.result[i]['z'])
             print("Redshift: ", self.result[i]['z'])
-            
         return self.redshift
     #End getRedshift function
     

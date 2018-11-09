@@ -17,8 +17,8 @@ class LuminosityDistance:
     @param param: search area in hour, minute, seconds format
     @param param: int expands search area by multiplying with arcminutes  
     """
-    def __init__(self, lat, long, radiusMultiplier):
-        self.query = SDSSQuery(lat, long, radiusMultiplier)
+    def __init__(self, latitude, longitude, radiusMultiplier):
+        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
         self.result = self.query.queryResult()
         self.objID = []
         self.redshift = []
@@ -26,18 +26,22 @@ class LuminosityDistance:
     
     """
     getID function gets query results and appends object ID's to list.
+    @return: list of object ID's.
     """
     def getID(self):      
         for i in range(0, len(self.result)):
             self.objID.append(self.result[i]['objid'])
+        return self.objID
     #End getID function
     
     """
     getRedshift function gets query results and appends object redshifts to list.
+    @return: list of object redshifts.
     """   
     def getRedshift(self):
         for i in range(0, len(self.result)):
             self.redshift.append(self.result[i]['z'])
+        return self.redshift
     #End getRedshift function     
     
     """
@@ -47,6 +51,8 @@ class LuminosityDistance:
     If user provided object ID is not contained in query results, prints out error stating so.
     """    
     def luminosityDistance(self, objectID):
+        self.getID()
+        self.getRedshift()
         lumDist = 0
         if (objectID in self.objID):   
             for i in range(0, len(self.objID)):
@@ -65,8 +71,6 @@ class LuminosityDistance:
     @param param: ID of object to calculate luminosity distance. 
     """
     def runLuminosityDistance(self, objectID):
-        self.getID()
-        self.getRedshift()
         self.luminosityDistance(objectID)
         sys.stdout.flush()
     #End runLuminosityDistance function
