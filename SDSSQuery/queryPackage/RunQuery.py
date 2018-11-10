@@ -2,7 +2,7 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 8 November 2018
+@change: 9 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
@@ -10,6 +10,14 @@ from queryPackage.RecedingVelocity import RecedingVelocity
 from queryPackage.LuminosityDistance import LuminosityDistance
 
 class RunQuery:
+    
+    def viewQueryResults(self, latitude, longitude, radiusMultiplier):
+        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
+        self.result = self.query.queryResult()
+        
+    def viewSpectraResults(self, latitude, longitude, radiusMultiplier):
+        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
+        self.result = self.query.querySpectra()
     
     def recedingVelocity(self, latitude, longitude, radiusMultiplier):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
@@ -29,9 +37,9 @@ class RunQuery:
 """
 Test RunQuery implementation
 """   
-query = SDSSQuery(143.50993, 55.239775, 12)
-query.querySpectra()   
 target1 = RunQuery()
+target1.viewQueryResults(143.50993, 55.239775, 12)
+target1.viewSpectraResults(143.50993, 55.239775, 12)
 target1.recedingVelocity(143.50993, 55.239775, 12)
 target1.objectSpeedLightPercent(1237653613722927217)
 #target1.objectSpeedLightPercent(7582938475293)                         #Test invalid argument     

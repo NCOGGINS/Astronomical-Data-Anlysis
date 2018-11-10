@@ -61,6 +61,11 @@ class ObjectMagnitudes:
         return self.objectColor
     #End getObjectColors function
     
+    """
+    PlotMagnitudes function makes a scatter plot using objectColor and 
+    gFilter lists. Shows how an objects color changes to more red as 
+    it gets farther away. Line of best fit is drawn to illustrate trend.
+    """
     def plotMagnitudes(self):
         self.getObjectColors()
         plt.scatter(self.objectColor, self.gFilter)
@@ -70,7 +75,11 @@ class ObjectMagnitudes:
         plt.ylabel("Object Magnitude")
         plt.show()
     #End plotMagnitudes function
-        
+     
+    """
+    RunObjectMagnitudes function calls plotMagnitudes function.
+    sys.stdout.flush() sends output to node.js for html display.
+    """   
     def runObjectMagnitudes(self):
         self.plotMagnitudes()
         sys.stdout.flush()

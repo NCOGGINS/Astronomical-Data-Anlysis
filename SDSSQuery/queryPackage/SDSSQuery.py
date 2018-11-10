@@ -42,11 +42,10 @@ class SDSSQuery:
     @return: query spectra.
     """
     def querySpectra(self):
-        co = []
+        coord = []
         for i in range(0, len(self.ra)):
-            co.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
-        self.spectra = SDSS.query_crossid(co, photoobj_fields=['modelMag_g', 'modelMag_r'])
-        
+            coord.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
+        self.spectra = SDSS.query_crossid(coord, photoobj_fields=['modelMag_g', 'modelMag_r'])       
         print(self.spectra)
         sys.stdout.flush()
         return self.spectra

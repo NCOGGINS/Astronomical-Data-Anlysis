@@ -66,8 +66,9 @@ class LuminosityDistance:
     #End luminosityDistance function
     
     """
-    RunLuminosityDistance function calls getID, getRedshift, and luminosityDistance functions
-    and runs them. sys.stdout.flush sends output to node.js for html display.
+    RunLuminosityDistance function calls luminosityDistance function with
+    user supplied parameter. sys.stdout.flush sends output to 
+    node.js for html display.
     
     @param param: ID of object to calculate luminosity distance. 
     """
