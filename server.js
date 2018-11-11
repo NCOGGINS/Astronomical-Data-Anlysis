@@ -17,7 +17,8 @@ app.get('/', function (req, res) {
   const pythonProcess = spawn('python',[pythonProcName]); //[pythonProcName, argv1, argv2...]
   pythonProcess.stdout.on('data', (data) => {
     var txt = data.toString();
-    console.log("response from python process: ") //test
+    console.log(new Date());
+    console.log("response from python process: "); //test
     console.log(txt);
   });
 
