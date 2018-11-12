@@ -6,11 +6,28 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
         <title>Astronomical Data Analysis</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <form>
+            Latitude (between 0 and 180):
+            <input type="number" name="latitude" min="0" max="180">
+        </form>
+        <form>
+            Longitude (between 1 and 180):
+            <input type="number" name="longitude" min="0" max="180">
+        </form>
+        <form>
+            Number (between 0 and 99):
+            <input type="number" name="number" min="0" max="99">
+        </form>
+        <form>
+            Object ID:
+            <input type="number" name="ID" min="0">
+        </form>
     </body>
 </html>
