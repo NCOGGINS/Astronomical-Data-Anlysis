@@ -10,24 +10,38 @@ and open the template in the editor.
 
         <title>Astronomical Data Analysis</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <form>
-            Latitude (between -90 and 90):
-            <input type="number" name="latitude" min="-90" max="90">
-        </form>
-        <form>
-            Longitude (between -180 and 180):
-            <input type="number" name="longitude" min="-180" max="180">
-        </form>
-        <form>
-            Number (between 0 and 99):
-            <input type="number" name="number" min="0" max="99">
-        </form>
-        <form>
-            Object ID:
-            <input type="number" name="ID" min="0">
-        </form>
+        <div id="inputs">
+            <form>
+                Latitude (between -90 and 90):
+                <input type="number" name="latitude" min="-90" max="90">
+            </form>
+            <form>
+                Longitude (between -180 and 180):
+                <input type="number" name="longitude" min="-180" max="180">
+            </form>
+            <form>
+                Number (between 0 and 99):
+                <input type="number" name="number" min="0" max="99">
+            </form>
+            <form>
+                Object ID:
+                <input type="text" name="ID">
+            </form>
+        </div>
+
+        <div id="queries">
+            <select name="queryList">
+                <option> Please select the desired query</option>
+                <option> view query results </option>
+                <option> view spectra results </option>
+                <option> receding velocity </option>
+                <option> object speed light percent </option>
+                <option> lum distance </option>
+                <option> plot magnitudes </option>
+            </select>
+        </div>
     </body>
 </html>
