@@ -2,12 +2,13 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 9 November 2018
+@change: 12 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
 from queryPackage.RecedingVelocity import RecedingVelocity
 from queryPackage.LuminosityDistance import LuminosityDistance
+from queryPackage.HRDiagram import HRDiagram
 
 class RunQuery:
     
@@ -33,6 +34,10 @@ class RunQuery:
     def plotMagnitudes(self, latitude, longitude, radiusMultiplier):
         self.result = ObjectMagnitudes(latitude, longitude, radiusMultiplier)
         self.result.runObjectMagnitudes()
+        
+    def plotHRDiagram(self, latitude, longitude, radiusMultiplier):
+        self.result = HRDiagram(latitude, longitude, radiusMultiplier)
+        self.result.runHRDiagram()
     
 """
 Test RunQuery implementation
@@ -46,3 +51,6 @@ target1.objectSpeedLightPercent(1237653613722927217)
 target1.lumDistance(143.50993, 55.239775, 12, 1237654382516765265)
 #target1.lumDistance('0h8m05.63s +14d50m23.3s', 10, 948510398569145)    #Test invalid argument
 target1.plotMagnitudes(143.50993, 55.239775, 12)
+target1.plotHRDiagram(143.50993, 03.239775, 20)
+
+
