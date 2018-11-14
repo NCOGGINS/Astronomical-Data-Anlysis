@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 
 app.use(express.static(webapp));
 
-app.post('/', function (req, res) {
+app.post('/*', function (req, res) {                        //wildcard * for testing
   const spawn = require("child_process").spawn;
   const pythonProcess = spawn('python',[pythonProcName]); //[pythonProcName, argv1, argv2...]
   pythonProcess.stdout.on('data', (data) => {
