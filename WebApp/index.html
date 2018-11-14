@@ -12,35 +12,39 @@ Project URL: http://66.191.217.115:8090/ -->
     </head>
     <body>
         <h1>Astronomical Data Analysis</h1>
-        <div id="inputs">
-            <form>
-                Latitude (between -90 and 90):
-                <input type="number" name="latitude" min="-90" max="90">
-            </form>
-            <form>
-                Longitude (between -180 and 180):
-                <input type="number" name="longitude" min="-180" max="180">
-            </form>
-            <form>
-                Number (between 0 and 99):
-                <input type="number" name="number" min="0" max="99">
-            </form>
-            <form>
-                Object ID:
-                <input type="text" name="ID">
-            </form>
-        </div>
+        <form name="inputs">
+            <br>
+            <div id="queries">
+                List of available queries: <br>
+                <select name="queryList">
+                    <option> Please select the desired query</option>
+                    <option> view query results </option>
+                    <option> view spectra results </option>
+                    <option> receding velocity </option>
+                    <option> object speed light percent </option>
+                    <option> lum distance </option>
+                    <option> plot magnitudes </option>
+                </select>
+            </div>
 
-        <div id="queries">
-            <select name="queryList">
-                <option> Please select the desired query</option>
-                <option> view query results </option>
-                <option> view spectra results </option>
-                <option> receding velocity </option>
-                <option> object speed light percent </option>
-                <option> lum distance </option>
-                <option> plot magnitudes </option>
-            </select>
-        </div>
+            <br>
+
+            <div id="inputFields">
+                Latitude (between -90 and 90): <br>
+                <input type="number" name="latitude" min="-90" max="90">
+                <br>
+                Longitude (between -180 and 180): <br>
+                <input type="number" name="longitude" min="-180" max="180">
+                <br>
+                Number (between 0 and 99): <br>
+                <input type="number" name="number" min="0" max="99">
+                <br>
+                Object ID: <br>
+                <input type="text" name="ID">
+                <br>
+            </div>
+
+            <input type="submit" value="Run Query">
+        </form>
     </body>
 </html>
