@@ -50,8 +50,6 @@ class RecedingVelocity:
         print("Redshifts:")
         for i in range(0, len(self.result)):
             self.redshift.append(self.result[i]['z'])
-            print("Redshift: ", self.result[i]['z'])
-        print()
         return self.redshift
     #End getRedshift function
     
