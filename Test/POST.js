@@ -1,7 +1,7 @@
 /*Test Object: Post Requests*/
 function ajax(){
     var a = document.forms["myForm"]["A"].value;
-    var formdata = a;
+    var formdata = {'a': a, 'b': 'thisisB'};
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange=function(){
@@ -11,6 +11,7 @@ function ajax(){
     };
 
     xmlhttp.open("POST","",true);
-    xmlhttp.send(formdata);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify(formdata));
     return false;
   }
