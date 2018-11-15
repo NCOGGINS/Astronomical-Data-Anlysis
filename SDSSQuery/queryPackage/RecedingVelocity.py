@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 14 November 2018
+@change: 15 November 2018
 '''
 import sys
 import math
@@ -47,7 +47,6 @@ class RecedingVelocity:
     @return: list of object redshifts.
     """
     def getRedshift(self):
-        print("Redshifts:")
         for i in range(0, len(self.result)):
             self.redshift.append(self.result[i]['z'])
         return self.redshift
