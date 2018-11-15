@@ -2,7 +2,7 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 12 November 2018
+@change: 14 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
@@ -14,17 +14,18 @@ class RunQuery:
     
     def viewQueryResults(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.queryResult()
+        self.result = self.query.showStandardQuery()
         
     def viewSpectraResults(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.querySpectra()
+        self.result = self.query.showSpectraQuery()
     
     def recedingVelocity(self, latitude, longitude, radiusMultiplier):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
         self.result.runRecedingVelocity()
         
-    def objectSpeedLightPercent(self, targetID):
+    def objectSpeedLightPercent(self, latitude, longitude, radiusMultiplier, targetID):
+        self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
         self.result.runSpeedLightPercent(targetID)
     
     def lumDistance(self, latitude, longitude, radiusMultiplier, targetID):
@@ -46,10 +47,10 @@ target1 = RunQuery()
 target1.viewQueryResults(143.50993, 55.239775, 12)
 target1.viewSpectraResults(143.50993, 55.239775, 12)
 target1.recedingVelocity(143.50993, 55.239775, 12)
-target1.objectSpeedLightPercent(1237653613722927217)
-#target1.objectSpeedLightPercent(7582938475293)                         #Test invalid argument     
+target1.objectSpeedLightPercent(143.50993, 55.239775, 12, 1237653613722927217)
+#target1.objectSpeedLightPercent(143.50993, 55.239775, 12, 7582938475293)    #Test invalid argument     
 target1.lumDistance(143.50993, 55.239775, 12, 1237654382516765265)
-#target1.lumDistance('0h8m05.63s +14d50m23.3s', 10, 948510398569145)    #Test invalid argument
+#target1.lumDistance('0h8m05.63s +14d50m23.3s', 10, 948510398569145)         #Test invalid argument
 target1.plotMagnitudes(143.50993, 55.239775, 12)
 target1.plotHRDiagram(143.50993, 03.239775, 20)
 

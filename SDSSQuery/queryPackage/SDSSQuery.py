@@ -16,9 +16,6 @@ class SDSSQuery:
     latitude and longitute in decimal degree format, and search cone size.
     Order of arguments latitude, longitude, and radiusMultiplier. 
     
-    Queries data and stores in variable named 'result'. Loop goes through
-    result appending ra's and dec's to lists for spectro query.
-    
     @param param: latitude in decimal degree format.
     @param param: longitude in decimal degree format.
     @param param: int to multiply with arcminutes. Expands search area size.   
@@ -26,15 +23,24 @@ class SDSSQuery:
     def __init__(self, latitude, longitude, radiusMultiplier):
         warnings.filterwarnings('ignore')
         self.rad = radiusMultiplier * arcmin
-        self.position = coords.SkyCoord(latitude, longitude, frame='icrs', unit='deg')        
-        self.result = SDSS.query_region(self.position, radius=self.rad, spectro=True)
-        
+        self.position = coords.SkyCoord(latitude, longitude, frame='icrs', unit='deg')             
         self.ra = []
-        self.dec = []
+        self.dec = []    
+    #End SDSSQuery constructor
+    
+    """
+    StandardQuery function gets search position from constructor and performs
+    actual query. Goes through ra and dec columns and appends to lists for
+    use by querySpectra function.
+    @return: standard query result.
+    """
+    def standardQuery(self):
+        self.result = SDSS.query_region(self.position, radius=self.rad, spectro=True)
         for i in range(0, len(self.result)):
             self.ra.append(self.result[i]['ra'])
-            self.dec.append(self.result[i]['dec'])   
-    #End SDSSQuery constructor
+            self.dec.append(self.result[i]['dec'])
+        return self.result
+    #End standardQuery function
     
     """
     QuerySpectra function starts loop appending sky coordinates from ra's and dec's.
@@ -42,24 +48,29 @@ class SDSSQuery:
     @return: query spectra.
     """
     def querySpectra(self):
+        self.standardQuery()
         coord = []
         for i in range(0, len(self.ra)):
             coord.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
         self.spectra = SDSS.query_crossid(coord, photoobj_fields=['modelMag_g', 'modelMag_r'])       
-        print(self.spectra)
         sys.stdout.flush()
         return self.spectra
     #End querySpectra function
-        
+    
     """
-    Query Result function gets the query result from the constructor and returns it.  
-    @return: query result.
-    """
-    def queryResult(self):
-        print(self.result,'\n')
+    ShowSpectraQuery function prints out querySpectra result for viewing.
+    """    
+    def showSpectraQuery(self):
+        print(self.querySpectra())
         sys.stdout.flush()
-        return self.result
-    #End queryResult function    
+    #End showSpectraQuery
+    
+    """
+    ShowStandardQuery function prints out standardQuery result for viewing.
+    """    
+    def showStandardQuery(self):
+        print(self.standardQuery())
+        sys.stdout.flush() 
     
 """
 Test SDSSQuery Class Implementation

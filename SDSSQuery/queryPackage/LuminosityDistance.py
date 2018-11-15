@@ -2,7 +2,7 @@
 Created on Oct 26, 2018
 
 @author: Matthew Peek
-@change: 9 November 2018
+@change: 14 November 2018
 '''
 import sys
 from queryPackage.SDSSQuery import SDSSQuery
@@ -20,7 +20,7 @@ class LuminosityDistance:
     """
     def __init__(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.queryResult()
+        self.result = self.query.standardQuery()
         self.objID = []
         self.redshift = []
     #End Luminosity Distance constructor

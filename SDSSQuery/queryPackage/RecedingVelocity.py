@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 9 November 2018
+@change: 14 November 2018
 '''
 import sys
 import math
@@ -23,7 +23,7 @@ class RecedingVelocity:
     """
     def __init__(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.queryResult() 
+        self.result = self.query.standardQuery()
         self.objID = []
         self.redshift = []
         self.velocity = []
@@ -43,14 +43,15 @@ class RecedingVelocity:
     #End getID function
     
     """
-    GetRedshift function gets query results and appends redshifts to list.
-    
+    GetRedshift function gets query results and appends redshifts to list. 
     @return: list of object redshifts.
     """
     def getRedshift(self):
+        print("Redshifts:")
         for i in range(0, len(self.result)):
             self.redshift.append(self.result[i]['z'])
             print("Redshift: ", self.result[i]['z'])
+        print()
         return self.redshift
     #End getRedshift function
     
@@ -62,6 +63,8 @@ class RecedingVelocity:
         #Calculate speed at which galaxies are moving away from us.
         #For redshifts < 1 use equation velocity = (speed of light) * (redshift)
         #Otherwise use velocity = Hubble constant * proper distance
+        self.getID()
+        self.getRedshift()
         for i in range(0, len(self.redshift)):
             if (self.redshift[i] < 1):
                 velocity = self.c * (self.redshift[i])
@@ -81,8 +84,7 @@ class RecedingVelocity:
     """
     Velocity Vs Speed of Light function finds how velocity of object is traveling
     at the speed of light. prints out the object's id and percentage at speed of light.
-    
-    
+       
     @param param: Object ID to calculate. If object ID is not contained in the query,
     prints out error message. 
     """
@@ -120,8 +122,6 @@ class RecedingVelocity:
     node.js for html display.
     """
     def runRecedingVelocity(self):
-        self.getID()
-        self.getRedshift()
         self.computeVelocity()
         self.plotVelocity()
         sys.stdout.flush()
@@ -134,6 +134,7 @@ class RecedingVelocity:
     @param param: object ID to compute. 
     """
     def runSpeedLightPercent(self, targetID):
+        self.computeVelocity()
         self.velocityVsSpeedOfLight(targetID)
         sys.stdout.flush()
     #End runSpeedLightPercent function
