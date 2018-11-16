@@ -21,7 +21,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var webapp = path.join(__dirname, staticLocation)
 
-app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
   if (requestFeedback) console.log(req.method + " request at " + new Date().toString());
