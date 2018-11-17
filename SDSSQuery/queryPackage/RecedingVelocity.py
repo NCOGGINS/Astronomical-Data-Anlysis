@@ -73,9 +73,6 @@ class RecedingVelocity:
                 velocity = hubbleConstant * hubbleDistance
                 self.velocity.append(velocity)
                 self.objectID.append(self.objID[i])
-        
-        for i in range(0, len(self.objectID)):
-            print ("Object: " + str(self.objectID[i]) + " Velocity: " + str(self.velocity[i]) + " km/s")
     #End computeVelocity function
     
     """
@@ -86,6 +83,7 @@ class RecedingVelocity:
     prints out error message. 
     """
     def velocityVsSpeedOfLight(self, targetID):
+        self.computeVelocity()
         vPerSpeedOfLight = 0
         if (targetID in self.objectID):
             for i in range(0, len(self.objectID)):
@@ -99,6 +97,11 @@ class RecedingVelocity:
             print()
             print(targetID, "is not in query results.")
     #End velocityVsSpeedOfLight function
+    
+    def viewComputedVelocity(self):
+        for i in range(0, len(self.objectID)):
+            print ("Object: " + str(self.objectID[i]) + " Velocity: " + str(self.velocity[i]) + " km/s")
+    #End viewComputedVelocity function
     
     """
     Plot Velocity function produces a scatter plot of object's redshifts vs. velocities.
@@ -120,6 +123,7 @@ class RecedingVelocity:
     """
     def runRecedingVelocity(self):
         self.computeVelocity()
+        self.viewComputedVelocity()
         self.plotVelocity()
         sys.stdout.flush()
     #End runRecedingVelocity function
@@ -131,7 +135,6 @@ class RecedingVelocity:
     @param param: object ID to compute. 
     """
     def runSpeedLightPercent(self, targetID):
-        self.computeVelocity()
         self.velocityVsSpeedOfLight(targetID)
         sys.stdout.flush()
     #End runSpeedLightPercent function

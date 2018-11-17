@@ -74,8 +74,8 @@ class SDSSQuery:
     
 """
 Test SDSSQuery Class Implementation
-"""
-#target1 = SDSSQuery(143.50993, 55.239775, 4)
-#target1.queryResult()
-#target1.querySpectra()
 
+target1 = SDSSQuery(143.50993, 55.239775, 4)
+target1.showStandardQuery()
+target1.showSpectraQuery()
+"""

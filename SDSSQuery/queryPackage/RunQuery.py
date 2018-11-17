@@ -42,7 +42,7 @@ class RunQuery:
     
 """
 Test RunQuery implementation
-"""   
+
 target1 = RunQuery()
 target1.viewQueryResults(143.50993, 55.239775, 12)
 target1.viewSpectraResults(143.50993, 55.239775, 12)
@@ -53,5 +53,5 @@ target1.lumDistance(143.50993, 55.239775, 12, 1237654382516765265)
 #target1.lumDistance('0h8m05.63s +14d50m23.3s', 10, 948510398569145)         #Test invalid argument
 target1.plotMagnitudes(143.50993, 55.239775, 12)
 target1.plotHRDiagram(143.50993, 03.239775, 20)
-
+"""
 
