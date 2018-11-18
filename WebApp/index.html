@@ -1,5 +1,5 @@
 <!--By: Nathan Coggins, Matthew Peek and KateLynn Pullen
-Last Modified 12 November 2018
+Last Modified 18 November 2018
 Project URL: http://66.191.217.115:8090/ -->
 
 <html>
@@ -9,10 +9,11 @@ Project URL: http://66.191.217.115:8090/ -->
         <title>Astronomical Data Analysis</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="POST.js"></script>
     </head>
     <body>
         <h1>Astronomical Data Analysis</h1>
-        <form name="inputs">
+        <form name="inputs" onsubmit="return ajax();" method="post">
             <br>
             <div id="queries">
                 List of available queries: <br>
