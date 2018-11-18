@@ -4,12 +4,14 @@
 
 /*Test Object: Post Requests*/
 function ajax() {
+    var query = document.forms["inputs"]["queryList"].value;
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
     var number = document.forms["inputs"]["number"].value;
     var ID = document.forms["inputs"]["ID"].value;
 
-    var formdata = {'latitude': latitude,
+    var formdata = {'query': query,
+        'latitude': latitude,
         'longitude': longitude,
         'number': number,
         'ID': ID}; //read form requests into javascript object {'name': value, 'name': value, 'name': value}
