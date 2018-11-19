@@ -5,7 +5,8 @@ Created on Oct 26, 2018
 @change: 14 November 2018
 '''
 import sys
-from queryPackage.SDSSQuery import SDSSQuery
+import SDSSQuery
+#from queryPackage.SDSSQuery import SDSSQuery
 from astropy.cosmology import WMAP9 as cosmo
 
 class LuminosityDistance:

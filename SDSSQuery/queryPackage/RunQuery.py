@@ -4,11 +4,15 @@ Created on Nov 7, 2018
 @author: Matthew Peek
 @change: 18 November 2018
 '''
-from queryPackage.SDSSQuery import SDSSQuery
-from queryPackage.ObjectMagnitudes import ObjectMagnitudes
-from queryPackage.RecedingVelocity import RecedingVelocity
-from queryPackage.LuminosityDistance import LuminosityDistance
-from queryPackage.HRDiagram import HRDiagram
+import SDSSQuery
+import ObjectMagnitudes
+import RecedingVelocity
+import LuminosityDistance
+#from queryPackage.SDSSQuery import SDSSQuery
+#from queryPackage.ObjectMagnitudes import ObjectMagnitudes
+#from queryPackage.RecedingVelocity import RecedingVelocity
+#from queryPackage.LuminosityDistance import LuminosityDistance
+#from queryPackage.HRDiagram import HRDiagram
 
 class RunQuery:
     
