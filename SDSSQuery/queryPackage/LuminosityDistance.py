@@ -61,7 +61,7 @@ class LuminosityDistance:
                     lumDist = cosmo.luminosity_distance(self.redshift[i])
                     print("Luminosity Distance for", objectID, "is", lumDist)
         else:
-            print(objectID, "is not in query results.")
+            print(objectID, "is not a valid object identifier.")
             print("Try searching for different object ID, expanding radius, or different coordinates.")       
     #End luminosityDistance function
     

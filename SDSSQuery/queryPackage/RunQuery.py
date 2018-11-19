@@ -2,7 +2,7 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 14 November 2018
+@change: 18 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
@@ -39,7 +39,8 @@ class RunQuery:
     def plotHRDiagram(self, latitude, longitude, radiusMultiplier):
         self.result = HRDiagram(latitude, longitude, radiusMultiplier)
         self.result.runHRDiagram()
-    
+        
+        
 """
 Test RunQuery implementation
 

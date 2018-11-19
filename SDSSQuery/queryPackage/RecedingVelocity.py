@@ -95,7 +95,7 @@ class RecedingVelocity:
                    + " % the speed of light", '\n') 
         else:
             print()
-            print(targetID, "is not in query results.")
+            print(targetID, "is not a valid object identifier.")
     #End velocityVsSpeedOfLight function
     
     def viewComputedVelocity(self):
