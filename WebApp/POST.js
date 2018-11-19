@@ -20,7 +20,8 @@ function ajax() {
 
     xmlhttp.onreadystatechange = function () { //onreadystatechange property fires each time the state changes, must be set to a function
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log("It worked");
+            //console.log("It worked");
+            console.log(xmlhttp.responseText);
             //document.getElementById("result").innerHTML = xmlhttp.responseText; //replace this line with what you want to do when the information is returned with a 200 (OK) code
             
         }
