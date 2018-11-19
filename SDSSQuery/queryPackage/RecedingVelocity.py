@@ -9,8 +9,7 @@ import math
 import numpy as np
 from matplotlib import pyplot as plt
 from astropy.cosmology import WMAP9 as cosmo
-import SDSSQuery
-#from queryPackage.SDSSQuery import SDSSQuery
+from queryPackage.SDSSQuery import SDSSQuery
 
 class RecedingVelocity:
     

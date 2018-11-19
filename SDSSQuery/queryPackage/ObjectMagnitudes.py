@@ -7,8 +7,7 @@ Created on Nov 8, 2018
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
-import SDSSQuery
-#from queryPackage.SDSSQuery import SDSSQuery
+from queryPackage.SDSSQuery import SDSSQuery
 
 class ObjectMagnitudes:
     

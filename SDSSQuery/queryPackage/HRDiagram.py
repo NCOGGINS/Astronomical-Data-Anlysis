@@ -7,8 +7,7 @@ Created on Nov 12, 2018
 
 import sys
 from matplotlib import pyplot as plt
-import SDSSQuery
-#from queryPackage.SDSSQuery import SDSSQuery
+from queryPackage.SDSSQuery import SDSSQuery
 
 class HRDiagram:
     

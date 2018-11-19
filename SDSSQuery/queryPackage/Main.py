@@ -4,7 +4,6 @@ Created on Nov 16, 2018
 @author: Matthew Peek
 @change: 18 November 2018
 '''
-#from queryPackage.RunQuery import RunQuery
 import RunQuery
 
 """
