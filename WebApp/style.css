@@ -16,3 +16,11 @@ form{
 #inputs{
 width: 400px;
 }
+
+input{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
