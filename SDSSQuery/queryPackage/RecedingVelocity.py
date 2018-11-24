@@ -2,9 +2,8 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 15 November 2018
+@change: 24 November 2018
 '''
-import sys
 import math
 import numpy as np
 from matplotlib import pyplot as plt
@@ -91,13 +90,14 @@ class RecedingVelocity:
                 if (self.objectID[i] == targetID):
                     objectVelocity = self.velocity[i]
                     vPerSpeedOfLight = (objectVelocity / self.c) * 100
+                    return vPerSpeedOfLight
             #print()
             #print("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
                    #+ " % the speed of light", '\n') 
-        #else:
+        else:
             #print()
             #print(targetID, "is not a valid object identifier.")
-        return vPerSpeedOfLight
+            return -1
     #End velocityVsSpeedOfLight function
     
     def viewComputedVelocity(self):
@@ -120,12 +120,12 @@ class RecedingVelocity:
     
     """
     RunRecedingVelocity function calls getID, getRedshift, computeVelocity, and
-    plotVelocity functions and runs them. sys.stdout.flush() sends output to
-    node.js for html display.
+    plotVelocity functions and runs them.
     """
     def runRecedingVelocity(self):
         self.computeVelocity()
         self.getID()
+        self.getRedshift()
         #self.viewComputedVelocity()
         #self.plotVelocity()
         return self
@@ -133,7 +133,6 @@ class RecedingVelocity:
     
     """
     RunSpeedLightPercent function calls velocityVsSpeedOfLight function and runs it.
-    sys.stdout.flush() sends output to node.js for html display.
     
     @param param: object ID to compute. 
     """

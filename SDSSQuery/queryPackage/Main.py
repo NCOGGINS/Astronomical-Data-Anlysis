@@ -4,9 +4,9 @@ Created on Nov 16, 2018
 @author: Matthew Peek
 @change: 18 November 2018
 '''
-from queryPackage.RunQuery import RunQuery
-import json
 import sys
+import json
+from queryPackage.RunQuery import RunQuery
 
 """
 Switch function selects query/computation to perform by argument passed.
@@ -32,6 +32,6 @@ def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
         return run.plotMagnitudes(latitude, longitude, radiusMultiplier)
 
 if __name__ == "__main__":
-    print(switch(143.50993, 55.239775, 12, 0, 1237654382516699587))
-    print(json.dumps(switch(143.50993, 55.239775, 12, 0, 1237654382516699587)))
+    print(switch(143.50993, 55.239775, 12, 5, 1237654382516699587))
+    print(json.dumps(switch(143.50993, 55.239775, 12, 5, 1237654382516699587)))
     sys.stdout.flush()

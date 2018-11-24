@@ -2,9 +2,8 @@
 Created on Oct 26, 2018
 
 @author: Matthew Peek
-@change: 14 November 2018
+@change: 24 November 2018
 '''
-import sys
 from queryPackage.SDSSQuery import SDSSQuery
 from astropy.cosmology import WMAP9 as cosmo
 
@@ -59,23 +58,24 @@ class LuminosityDistance:
             for i in range(0, len(self.objID)):
                 if (objectID == self.objID[i]):
                     lumDist = cosmo.luminosity_distance(self.redshift[i])
-                    print("Luminosity Distance for", objectID, "is", lumDist)
+                    #print("Luminosity Distance for", objectID, "is", lumDist)
+                    return lumDist
         else:
-            print(objectID, "is not a valid object identifier.")
-            print("Try searching for different object ID, expanding radius, or different coordinates.")       
+            #print(objectID, "is not a valid object identifier.")
+            #print("Try searching for different object ID, expanding radius, or different coordinates.")       
+            return -1
     #End luminosityDistance function
     
     """
     RunLuminosityDistance function calls luminosityDistance function with
-    user supplied parameter. sys.stdout.flush sends output to 
-    node.js for html display.
+    user supplied parameter.
     
     @param param: ID of object to calculate luminosity distance. 
     """
     def runLuminosityDistance(self, objectID):
         self.luminosityDistance(objectID)
-        sys.stdout.flush()
-    #End runLuminosityDistance function
+        return self    
+        #End runLuminosityDistance function
     
             
 """

@@ -2,9 +2,8 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 9 November 2018
+@change: 24 November 2018
 '''
-import sys
 import warnings
 from astroquery.sdss import SDSS
 from astropy.units import arcmin
@@ -53,7 +52,6 @@ class SDSSQuery:
         for i in range(0, len(self.ra)):
             coord.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
         self.spectra = SDSS.query_crossid(coord, photoobj_fields=['modelMag_g', 'modelMag_r'])       
-        sys.stdout.flush()
         return self.spectra
     #End querySpectra function
     

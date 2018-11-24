@@ -2,7 +2,7 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 18 November 2018
+@change: 24 November 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
@@ -22,20 +22,19 @@ class RunQuery:
     
     def recedingVelocity(self, latitude, longitude, radiusMultiplier):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
-        print("Made it here")
         return self.result.runRecedingVelocity()
         
     def objectSpeedLightPercent(self, latitude, longitude, radiusMultiplier, targetID):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
-        self.result.runSpeedLightPercent(targetID)
+        return self.result.runSpeedLightPercent(targetID)
     
     def lumDistance(self, latitude, longitude, radiusMultiplier, targetID):
         self.result = LuminosityDistance(latitude, longitude, radiusMultiplier)
-        self.result.runLuminosityDistance(targetID)
+        return self.result.runLuminosityDistance(targetID)
         
     def plotMagnitudes(self, latitude, longitude, radiusMultiplier):
         self.result = ObjectMagnitudes(latitude, longitude, radiusMultiplier)
-        self.result.runObjectMagnitudes()
+        return self.result.runObjectMagnitudes()
         
     def plotHRDiagram(self, latitude, longitude, radiusMultiplier):
         self.result = HRDiagram(latitude, longitude, radiusMultiplier)

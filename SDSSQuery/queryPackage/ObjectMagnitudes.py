@@ -2,9 +2,8 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 9 November 2018
+@change: 24 November 2018
 '''
-import sys
 import numpy as np
 from matplotlib import pyplot as plt
 from queryPackage.SDSSQuery import SDSSQuery
@@ -78,11 +77,14 @@ class ObjectMagnitudes:
      
     """
     RunObjectMagnitudes function calls plotMagnitudes function.
-    sys.stdout.flush() sends output to node.js for html display.
+    X-axis = object colors list.
+    Y-axis = g filter list.
     """   
     def runObjectMagnitudes(self):
-        self.plotMagnitudes()
-        sys.stdout.flush()
+        #self.plotMagnitudes()
+        self.getObjectColors()
+        self.getGFilter()
+        return self
     #End runObjectMagnitudes function    
             
 """
