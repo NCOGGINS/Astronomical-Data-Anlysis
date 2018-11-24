@@ -73,6 +73,7 @@ class RecedingVelocity:
                 velocity = hubbleConstant * hubbleDistance
                 self.velocity.append(velocity)
                 self.objectID.append(self.objID[i])
+        return self.velocity
     #End computeVelocity function
     
     """
@@ -125,8 +126,8 @@ class RecedingVelocity:
     def runRecedingVelocity(self):
         self.computeVelocity()
         #self.viewComputedVelocity()
-        self.plotVelocity()
-        sys.stdout.flush()
+        #self.plotVelocity()
+        return self
     #End runRecedingVelocity function
     
     """
@@ -143,12 +144,12 @@ class RecedingVelocity:
 
 """
 Test RecedingVelocity Class Implementation
-"""
+
 target1 = RecedingVelocity(143.50993, 55.239775, 10)
 target1.getID()
 target1.getRedshift()
 target1.computeVelocity()
 target1.velocityVsSpeedOfLight(1237652943176204753)
 #target1.plotVelocity()
-
+"""
         

@@ -22,7 +22,8 @@ class RunQuery:
     
     def recedingVelocity(self, latitude, longitude, radiusMultiplier):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
-        self.result.runRecedingVelocity()
+        print("Made it here")
+        return self.result.runRecedingVelocity()
         
     def objectSpeedLightPercent(self, latitude, longitude, radiusMultiplier, targetID):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
