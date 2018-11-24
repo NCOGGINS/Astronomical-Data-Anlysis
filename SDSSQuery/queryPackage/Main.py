@@ -32,5 +32,6 @@ def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
         return run.plotMagnitudes(latitude, longitude, radiusMultiplier)
 
 if __name__ == "__main__":
+    print(switch(143.50993, 55.239775, 12, 2, 1237654382516699587))
     print(json.dumps(switch(143.50993, 55.239775, 12, 2, 1237654382516699587)))
     sys.stdout.flush()
