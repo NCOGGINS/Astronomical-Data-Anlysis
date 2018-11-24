@@ -6,6 +6,7 @@ Created on Nov 16, 2018
 '''
 from queryPackage.RunQuery import RunQuery
 import json
+import sys
 
 """
 Switch function selects query/computation to perform by argument passed.
