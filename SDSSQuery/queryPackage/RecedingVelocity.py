@@ -90,12 +90,13 @@ class RecedingVelocity:
                 if (self.objectID[i] == targetID):
                     objectVelocity = self.velocity[i]
                     vPerSpeedOfLight = (objectVelocity / self.c) * 100
-            print()
-            print("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
-                   + " % the speed of light", '\n') 
-        else:
-            print()
-            print(targetID, "is not a valid object identifier.")
+            #print()
+            #print("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
+                   #+ " % the speed of light", '\n') 
+        #else:
+            #print()
+            #print(targetID, "is not a valid object identifier.")
+        return vPerSpeedOfLight
     #End velocityVsSpeedOfLight function
     
     def viewComputedVelocity(self):
@@ -123,7 +124,7 @@ class RecedingVelocity:
     """
     def runRecedingVelocity(self):
         self.computeVelocity()
-        self.viewComputedVelocity()
+        #self.viewComputedVelocity()
         self.plotVelocity()
         sys.stdout.flush()
     #End runRecedingVelocity function
@@ -142,12 +143,12 @@ class RecedingVelocity:
 
 """
 Test RecedingVelocity Class Implementation
-
-target1 = RecedingVelocity('0h8m05.63s +14d50m23.3s', 10)
+"""
+target1 = RecedingVelocity(143.50993, 55.239775, 10)
 target1.getID()
 target1.getRedshift()
 target1.computeVelocity()
 target1.velocityVsSpeedOfLight(1237652943176204753)
-target1.plotVelocity()
-"""
+#target1.plotVelocity()
+
         
