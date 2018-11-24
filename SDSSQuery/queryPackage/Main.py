@@ -5,6 +5,7 @@ Created on Nov 16, 2018
 @change: 18 November 2018
 '''
 from queryPackage.RunQuery import RunQuery
+import json
 
 """
 Switch function selects query/computation to perform by argument passed.
@@ -12,7 +13,7 @@ Switch function selects query/computation to perform by argument passed.
 @param param: int longitude
 @param param: int radiusMultipler
 @param param: int argument that instructs what query/computation to perform
-@param param: Default int targetID, if empty default is None. Otherwise int is passed to function call.     
+@param param: Default int targetID, if empty default is None. Otherwise int is passed to function call.
 """
 def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
     run = RunQuery()
@@ -28,7 +29,7 @@ def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
         return run.lumDistance(latitude, longitude, radiusMultiplier, targetID)
     elif (argv == 5):
         return run.plotMagnitudes(latitude, longitude, radiusMultiplier)
-    
+
 if __name__ == "__main__":
-    switch(143.50993, 55.239775, 12, 0, 1237654382516699587)
-    
+    print(json.dumps(switch(143.50993, 55.239775, 12, 2, 1237654382516699587)))
+    sys.stdout.flush()
