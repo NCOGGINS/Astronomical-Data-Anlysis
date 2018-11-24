@@ -14,11 +14,11 @@ class RunQuery:
     
     def viewQueryResults(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.showStandardQuery()
+        return self.query.showStandardQuery()
         
     def viewSpectraResults(self, latitude, longitude, radiusMultiplier):
         self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
-        self.result = self.query.showSpectraQuery()
+        return self.query.showSpectraQuery()
     
     def recedingVelocity(self, latitude, longitude, radiusMultiplier):
         self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)

@@ -125,6 +125,7 @@ class RecedingVelocity:
     """
     def runRecedingVelocity(self):
         self.computeVelocity()
+        self.getID()
         #self.viewComputedVelocity()
         #self.plotVelocity()
         return self
@@ -138,7 +139,7 @@ class RecedingVelocity:
     """
     def runSpeedLightPercent(self, targetID):
         self.velocityVsSpeedOfLight(targetID)
-        sys.stdout.flush()
+        return self
     #End runSpeedLightPercent function
             
 

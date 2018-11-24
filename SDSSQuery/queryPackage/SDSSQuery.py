@@ -61,16 +61,16 @@ class SDSSQuery:
     ShowSpectraQuery function prints out querySpectra result for viewing.
     """    
     def showSpectraQuery(self):
-        print(self.querySpectra())
-        sys.stdout.flush()
+        #print(self.querySpectra())
+        return self
     #End showSpectraQuery
     
     """
     ShowStandardQuery function prints out standardQuery result for viewing.
     """    
     def showStandardQuery(self):
-        print(self.standardQuery())
-        sys.stdout.flush() 
+        #print(self.standardQuery())
+        return self
     
 """
 Test SDSSQuery Class Implementation
