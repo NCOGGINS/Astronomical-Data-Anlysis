@@ -28,7 +28,7 @@ function ajax() {
         ;
     };
 
-    //xmlhttp.open("POST", "66.191.217.115:8090", true); /*this allows you to post the server from your own browser*/
+    //xmlhttp.open("POST", "http://66.191.217.115:8090", true); /*this allows you to post the server from your own browser, in combination with CORS-disabled chrome shortcut "C:\path\to\chrome.exe" --disable-web-security --user-data-dir="C:/ChromeDevSession" */
     xmlhttp.open("POST", "", true); //open POST request
     xmlhttp.setRequestHeader("Content-Type", "application/json"); //the server will not understand without it
     xmlhttp.send(JSON.stringify(formdata));
