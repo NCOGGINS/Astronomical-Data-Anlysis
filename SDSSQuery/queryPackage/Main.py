@@ -31,28 +31,26 @@ def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
         dict["res"] = run.recedingVelocity(latitude, longitude, radiusMultiplier)
     elif (argv == 3):
         dict["head"]["type"] = "num"
-        dict["res"] = run.objectSpeedLightPercent(latitude, longitude, radiusMultiplier, targetID)
+        dict["res"] = run.objectSpeedLightPercent(latitude, longitude, radiusMultiplier, int(targetID))
         if (dict["res"] == -1):
             dict["head"]["error"] = "TODO: error msg"
     elif (argv == 4): #lumDistance
         dict["head"]["type"] = "num units"
-        dict["res"] = str(run.lumDistance(latitude, longitude, radiusMultiplier, targetID))
+        dict["res"] = str(run.lumDistance(latitude, longitude, radiusMultiplier, int(targetID)))
         if (dict["res"] == -1):
             dict["head"]["error"] = "TODO: error msg"
     elif (argv == 5):
         dict["res"] = run.plotMagnitudes(latitude, longitude, radiusMultiplier)
-    else:
-        dict["head"]["error"] = "query type not recognized"
     return dict
 
 ret = {}
 ret["head"] = {}
-ret["head"]["error"] = "no searches fired"
+ret["head"]["error"] = "query number not recognized"
 
-if (len(sys.argv) == 5):
-    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]))
-elif (len(sys.argv) == 6):
-    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
+if (len(sys.argv) == 6):
+    queryT = int(sys.argv[4])
+    if (queryT > 0 and queryT < 6):
+        ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
     ret = switch(143.50993, 55.239775, 12, 3, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
