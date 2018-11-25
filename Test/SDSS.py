@@ -1,7 +1,9 @@
 #Test Object: SDSS request
 import sys
 import json
-if (int(sys.argv[4]) == 3):
+if (len(sys.argv) < 5):
+    print('{"head": {"error": "unexpected number of arguments"}, "res": {}}')
+elif (int(sys.argv[4]) == 3):
     print('{"head": {"type": "num"}, "res": 27.321479999999998}')
 elif (int(sys.argv[4]) == 30):
     print('{"head": {"type": "num", "error": "TODO: error msg"}, "res": -1}')
