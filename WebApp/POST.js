@@ -4,7 +4,21 @@
 
 /*Test Object: Post Requests*/
 function ajax() {
-    var query = document.forms["inputs"]["queryList"].value;
+    if (document.forms["inputs"]["queryList"].value === "view query results") {
+        var query = 0;
+    } else if (document.forms["inputs"]["queryList"].value === "view spectra results") {
+        var query = 1;
+    } else if (document.forms["inputs"]["queryList"].value === "receding velocity") {
+        var query = 2;
+    } else if (document.forms["inputs"]["queryList"].value === "object speed light percent") {
+        var query = 3;
+    } else if (document.forms["inputs"]["queryList"].value === "lum distance") {
+        var query = 4;
+    } else if (document.forms["inputs"]["queryList"].value === "plot magnitudes") {
+        var query = 5;
+    } else {
+        return "Not a query";
+    }
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
     var number = document.forms["inputs"]["number"].value;
