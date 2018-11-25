@@ -18,7 +18,7 @@ function ajax() {
         var query = 5;
     } else {
         console.log("Not a query!");
-        return "Not a query!";
+        var query = -1;
     }
 
 
