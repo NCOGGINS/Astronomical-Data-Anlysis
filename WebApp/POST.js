@@ -17,13 +17,14 @@ function ajax() {
     } else if (document.forms["inputs"]["queryList"].value === "plot magnitudes") {
         var query = 5;
     } else {
-        return "Not a query";
+        console.log("Not a query!");
+        return;
     }
 
 
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
-    var number = document.forms["inputs"]["number"].value;
+    var number = document.forms["inputs"]["radius"].value;
     var ID = document.forms["inputs"]["ID"].value;
 
     var formdata = {'query': query,
