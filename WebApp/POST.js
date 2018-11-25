@@ -1,5 +1,5 @@
 //By: Nathan Coggins, Matthew Peek and KateLynn Pullen
-//Last Modified 18 November 2018
+//Last Modified 25 November 2018
 //Project URL: http://66.191.217.115:8090
 
 /*Test Object: Post Requests*/
@@ -19,6 +19,8 @@ function ajax() {
     } else {
         return "Not a query";
     }
+
+
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
     var number = document.forms["inputs"]["number"].value;
