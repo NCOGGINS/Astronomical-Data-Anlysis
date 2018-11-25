@@ -23,6 +23,13 @@ var webapp = path.join(__dirname, staticLocation)
 
 app.use(bodyParser.json());
 
+//potential security issue?
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}); //TODO: remove when finished devl
+
 app.use(function (req, res, next) {
   if (requestFeedback) console.log(req.method + " request at " + new Date().toString());
   next();
@@ -34,7 +41,7 @@ app.post('*', function (req, res) {
 
   if (requestFeedback) console.log(req.method + " request contained: " + JSON.stringify(req.body));
   //latitude, longitude, radiusMultiplier, argv, targetID=None
-  
+
   const spawn = require("child_process").spawn;
   const pythonProcess = spawn('python',[pythonProcName, req.body.latitude, req.body.longitude, req.body.number, req.body.query, req.body.ID]); //[pythonProcName, argv1, argv2...]
   pythonProcess.stdout.on('data', (data) => {
