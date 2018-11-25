@@ -18,20 +18,44 @@ Switch function selects query/computation to perform by argument passed.
 """
 def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
     run = RunQuery()
+    dict = {}
+    dict["head"] = {}
+    dict["res"] = {}
     if (argv == 0):
-        return run.viewQueryResults(latitude, longitude, radiusMultiplier)
+        dict["head"]["type"] = "table"
+        dict["res"] = run.viewQueryResults(latitude, longitude, radiusMultiplier)
     elif (argv == 1):
-        return run.viewSpectraResults(latitude, longitude, radiusMultiplier)
+        dict["head"]["type"] = "table"
+        dict["res"] = run.viewSpectraResults(latitude, longitude, radiusMultiplier)
     elif (argv == 2):
-        return run.recedingVelocity(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.recedingVelocity(latitude, longitude, radiusMultiplier)
     elif (argv == 3):
-        return run.objectSpeedLightPercent(latitude, longitude, radiusMultiplier, targetID)
-    elif (argv == 4):
-        return run.lumDistance(latitude, longitude, radiusMultiplier, targetID)
+        dict["head"]["type"] = "num"
+        dict["res"] = run.objectSpeedLightPercent(latitude, longitude, radiusMultiplier, targetID)
+        if (dict["res"] == -1):
+            dict["head"]["error"] = "TODO: error msg"
+    elif (argv == 4): #lumDistance
+        dict["head"]["type"] = "num units"
+        dict["res"] = str(run.lumDistance(latitude, longitude, radiusMultiplier, targetID))
+        if (dict["res"] == -1):
+            dict["head"]["error"] = "TODO: error msg"
     elif (argv == 5):
-        return run.plotMagnitudes(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.plotMagnitudes(latitude, longitude, radiusMultiplier)
+    else:
+        dict["head"]["error"] = "query type not recognized"
+    return dict
 
-if __name__ == "__main__":
-    print(switch(143.50993, 55.239775, 12, 5, 1237654382516699587))
-    print(json.dumps(switch(143.50993, 55.239775, 12, 5, 1237654382516699587)))
-    sys.stdout.flush()
+ret = {}
+ret["head"] = {}
+ret["head"]["error"] = "no searches fired"
+if (len(sys.argv) == 5):
+    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]))
+elif (len(sys.argv) == 6):
+    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
+else:
+    ret = switch(143.50993, 55.239775, 12, 3, 1237654382516699587)
+    ret["head"]["error"] = "default search: unexpected number of arguments"
+
+#print(ret)
+print(json.dumps(ret))
+sys.stdout.flush()

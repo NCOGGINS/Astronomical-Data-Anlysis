@@ -33,9 +33,10 @@ app.use(express.static(webapp));
 app.post('*', function (req, res) {
 
   if (requestFeedback) console.log(req.method + " request contained: " + JSON.stringify(req.body));
-
+  //latitude, longitude, radiusMultiplier, argv, targetID=None
+  
   const spawn = require("child_process").spawn;
-  const pythonProcess = spawn('python',[pythonProcName]); //[pythonProcName, argv1, argv2...]
+  const pythonProcess = spawn('python',[pythonProcName, req.body.latitude, req.body.longitude, req.body.number, req.body.query, req.body.ID]); //[pythonProcName, argv1, argv2...]
   pythonProcess.stdout.on('data', (data) => {
     res.json(JSON.parse(data));
     if (requestFeedback) console.log(req.method + " response at " + new Date().toString() + ": " + data.toString().substring(0, 100));
