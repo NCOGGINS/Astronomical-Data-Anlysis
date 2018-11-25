@@ -48,13 +48,17 @@ def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
 ret = {}
 ret["head"] = {}
 ret["head"]["error"] = "no searches fired"
-if (len(sys.argv) == 5):
-    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]))
-elif (len(sys.argv) == 6):
-    ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
-else:
-    ret = switch(143.50993, 55.239775, 12, 3, 1237654382516699587)
-    ret["head"]["error"] = "default search: unexpected number of arguments"
+
+try:
+    if (len(sys.argv) == 5):
+        ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]))
+    elif (len(sys.argv) == 6):
+        ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
+    else:
+        ret = switch(143.50993, 55.239775, 12, 3, 1237654382516699587)
+        ret["head"]["error"] = "default query: unexpected number of arguments"
+except ValueError:
+    ret["head"]["error"] = "query type not a number: cast to float/int failed"
 
 #print(ret)
 print(json.dumps(ret))
