@@ -1,5 +1,5 @@
 //By: Nathan Coggins, Matthew Peek and KateLynn Pullen
-//Last Modified 25 November 2018
+//Last Modified 26 November 2018
 //Project URL: http://66.191.217.115:8090
 
 /*Test Object: Post Requests*/
@@ -24,7 +24,7 @@ function ajax() {
 
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
-    var number = document.forms["inputs"]["radius"].value;
+    var number = document.forms["inputs"]["Arcmin Radius Multiplier"].value;
     var ID = document.forms["inputs"]["ID"].value;
 
     var formdata = {'query': query,
