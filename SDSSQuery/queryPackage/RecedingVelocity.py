@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 24 November 2018
+@change: 26 November 2018
 '''
 import math
 import numpy as np
@@ -91,13 +91,9 @@ class RecedingVelocity:
                     objectVelocity = self.velocity[i]
                     vPerSpeedOfLight = (objectVelocity / self.c) * 100
                     return vPerSpeedOfLight
-            #print()
-            #print("Object: " + str(targetID) + " is moving at: " + str(vPerSpeedOfLight)
-                   #+ " % the speed of light", '\n')
+            
         else:
-            #print()
-            #print(targetID, "is not a valid object identifier.")
-            return -1
+            raise ValueError(targetID, 'is not a valid object identifier.')
     #End velocityVsSpeedOfLight function
 
     def viewComputedVelocity(self):
