@@ -16,31 +16,31 @@ Switch function selects query/computation to perform by argument passed.
 @param param: int argument that instructs what query/computation to perform
 @param param: Default int targetID, if empty default is None. Otherwise int is passed to function call.
 """
-def switch(latitude, longitude, radiusMultiplier, argv, targetID=None):
+def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     run = RunQuery()
     dict = {}
     dict["head"] = {}
     dict["res"] = {}
     if (argv == 0):
         dict["head"]["type"] = "table"
-        dict["res"] = run.viewQueryResults(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.viewQueryResults(longitude, latitude, radiusMultiplier)
     elif (argv == 1):
         dict["head"]["type"] = "table"
-        dict["res"] = run.viewSpectraResults(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
     elif (argv == 2):
-        dict["res"] = run.recedingVelocity(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.recedingVelocity(longitude, latitude, radiusMultiplier)
     elif (argv == 3):
         dict["head"]["type"] = "num"
-        dict["res"] = run.objectSpeedLightPercent(latitude, longitude, radiusMultiplier, int(targetID))
+        dict["res"] = run.objectSpeedLightPercent(longitude, latitude, radiusMultiplier, int(targetID))
         if (dict["res"] == -1):
             dict["head"]["error"] = "TODO: error msg"
     elif (argv == 4): #lumDistance
         dict["head"]["type"] = "num units"
-        dict["res"] = str(run.lumDistance(latitude, longitude, radiusMultiplier, int(targetID)))
+        dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
         if (dict["res"] == -1):
             dict["head"]["error"] = "TODO: error msg"
     elif (argv == 5):
-        dict["res"] = run.plotMagnitudes(latitude, longitude, radiusMultiplier)
+        dict["res"] = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
     return dict
 
 ret = {}

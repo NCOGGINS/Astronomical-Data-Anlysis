@@ -18,8 +18,8 @@ class ObjectMagnitudes:
     @param param: longitude in decimal degree format. 
     @param param: int expands search area by multiplying with arcminutes.
     """
-    def __init__(self, latitude, longitude, radiusMultiplier):
-        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
+    def __init__(self, longitude, latitude, radiusMultiplier):
+        self.query = SDSSQuery(longitude, latitude, radiusMultiplier)
         self.result = self.query.querySpectra()
         self.objectColor = []
         self.gFilter = []

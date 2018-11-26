@@ -12,24 +12,24 @@ from queryPackage.HRDiagram import HRDiagram
 
 class RunQuery:
 
-    def viewQueryResults(self, latitude, longitude, radiusMultiplier):
-        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
+    def viewQueryResults(self, longitude, latitude, radiusMultiplier):
+        self.query = SDSSQuery(longitude, latitude, radiusMultiplier)
         return self.query.standardQuery()
 
-    def viewSpectraResults(self, latitude, longitude, radiusMultiplier):
-        self.query = SDSSQuery(latitude, longitude, radiusMultiplier)
+    def viewSpectraResults(self, longitude, latitude, radiusMultiplier):
+        self.query = SDSSQuery(longitude, latitude, radiusMultiplier)
         return self.query.querySpectra()
 
-    def recedingVelocity(self, latitude, longitude, radiusMultiplier):
-        self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
+    def recedingVelocity(self, longitude, latitude, radiusMultiplier):
+        self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
         return self.result.runRecedingVelocity()
 
-    def objectSpeedLightPercent(self, latitude, longitude, radiusMultiplier, targetID):
-        self.result = RecedingVelocity(latitude, longitude, radiusMultiplier)
+    def objectSpeedLightPercent(self, longitude, latitude, radiusMultiplier, targetID):
+        self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
         return self.result.runSpeedLightPercent(targetID)
 
-    def lumDistance(self, latitude, longitude, radiusMultiplier, targetID):
-        self.result = LuminosityDistance(latitude, longitude, radiusMultiplier)
+    def lumDistance(self, longitude, latitude, radiusMultiplier, targetID):
+        self.result = LuminosityDistance(longitude, latitude, radiusMultiplier)
         return self.result.runLuminosityDistance(targetID)
 
     def plotMagnitudes(self, latitude, longitude, radiusMultiplier):

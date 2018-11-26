@@ -19,10 +19,10 @@ class SDSSQuery:
     @param param: longitude in decimal degree format.
     @param param: int to multiply with arcminutes. Expands search area size.   
     """
-    def __init__(self, latitude, longitude, radiusMultiplier):
+    def __init__(self, longitude, latitude, radiusMultiplier):
         warnings.filterwarnings('ignore')
         self.rad = radiusMultiplier * arcmin
-        self.position = coords.SkyCoord(latitude, longitude, frame='icrs', unit='deg')             
+        self.position = coords.SkyCoord(longitude, latitude, frame='icrs', unit='deg')             
         self.ra = []
         self.dec = []    
     #End SDSSQuery constructor
