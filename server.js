@@ -55,7 +55,7 @@ app.post('*', function (req, res) {
     mode: 'text',
     pythonPath: pythonPath,
     /* arg order: latitude,       longitude,      radiusMultiplier,     argv,       targetID */
-    args: [req.body.latitude, req.body.longitude, req.body.number, req.body.query, req.body.ID],
+    args: [req.body.longitude, req.body.latitude, req.body.number, req.body.query, req.body.ID],
   };
 
   PythonShell.run(pythonProcName, options, function (err, data) {
