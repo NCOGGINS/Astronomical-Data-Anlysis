@@ -24,7 +24,7 @@ function ajax() {
 
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
-    var number = document.forms["inputs"]["Arcmin Radius Multiplier"].value;
+    var number = document.forms["inputs"]["radius"].value;
     var ID = document.forms["inputs"]["ID"].value;
 
     var formdata = {'query': query,
