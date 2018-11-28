@@ -2,7 +2,7 @@
 Created on Oct 23, 2018
 
 @author: Matthew Peek
-@change: 24 November 2018
+@change: 26 November 2018
 '''
 import warnings
 from astroquery.sdss import SDSS
@@ -35,10 +35,13 @@ class SDSSQuery:
     """
     def standardQuery(self):
         self.result = SDSS.query_region(self.position, radius=self.rad, spectro=True)
-        for i in range(0, len(self.result)):
-            self.ra.append(self.result[i]['ra'])
-            self.dec.append(self.result[i]['dec'])
-        return self.result
+        try:
+            for i in range(0, len(self.result)):
+                self.ra.append(self.result[i]['ra'])
+                self.dec.append(self.result[i]['dec'])
+            return self.result
+        except:
+            return ValueError("No Results found"'\n'"Try a different search area.")
     #End standardQuery function
     
     """
@@ -47,12 +50,15 @@ class SDSSQuery:
     @return: query spectra.
     """
     def querySpectra(self):
-        self.standardQuery()
-        coord = []
-        for i in range(0, len(self.ra)):
-            coord.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
-        self.spectra = SDSS.query_crossid(coord, photoobj_fields=['modelMag_g', 'modelMag_r'])       
-        return self.spectra
+        try:
+            self.standardQuery()
+            coord = []
+            for i in range(0, len(self.ra)):
+                coord.append(coords.SkyCoord(self.ra[i], self.dec[i], frame='icrs', unit='deg'))
+            self.spectra = SDSS.query_crossid(coord, photoobj_fields=['modelMag_g', 'modelMag_r'])       
+            return self.spectra
+        except:
+            return ValueError("No Results found"'\n'"Try a different search area.")
     #End querySpectra function
     
     """

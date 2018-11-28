@@ -133,7 +133,8 @@ class RecedingVelocity:
     @param param: object ID to compute.
     """
     def runSpeedLightPercent(self, targetID):
-        return self.velocityVsSpeedOfLight(targetID)
+        self.velocityVsSpeedOfLight(targetID)
+        return self
     #End runSpeedLightPercent function
 
 
