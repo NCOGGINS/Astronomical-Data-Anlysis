@@ -5,11 +5,12 @@ pythonProcName - path to python process relative to server.js
 staticLocation - path to index.html relative to server.js
 requestFeedback - whether the server logs to console each time it receieves a request
  */
-//var pythonPath = 'C:/Users/avzkd/Anaconda3/envs/python36/python.exe';
-var pythonPath = '/home/server/anaconda3/envs/astro/bin/python';
-var pythonProcName = "SDSSQuery/queryPackage/Main.py";      /* "Test/SDSS.py" for Test, "SDSSQuery/queryPackage/Main.py" otherwise */
-var staticLocation = "WebApp";                              /* "Test" for Test, "WebApp" otherwise */
-var requestFeedback = true;
+ //var pythonPath = 'C:/Users/avzkd/Anaconda3/envs/python36/python.exe'; /* dev computer python interpreter location */
+ var pythonPath = '/home/server/anaconda3/envs/astro/bin/python';        /* server python interpreter location */
+ var pythonProcName = "SDSSQuery/queryPackage/Main.py";                  /* "Test/SDSS.py" for Test, "SDSSQuery/queryPackage/Main.py" otherwise */
+ var staticLocation = "WebApp";                                          /* "Test" for Test, "WebApp" otherwise */
+ var requestFeedback = true;                                             /* true if want to log to node terminal */
+ /**/
 
 /*
 MODULES (dependencies)
@@ -61,7 +62,7 @@ app.post('*', function (req, res) {
   PythonShell.run(pythonProcName, options, function (err, data) {
     if (err) {
       console.log('error on python process at ' + new Date().toString() + ': ' + err);
-      res.json({ head: { error: "python process exception: " + err, }, res: {}, });
+      res.json({ head: { error: "python process exception: " + parseErr(err), }, res: {}, });
     } else {
       res.json(JSON.parse(data));
       if (requestFeedback) console.log(req.method + " response at " + new Date().toString() + ": " + data.toString().substring(0, 100));
@@ -71,3 +72,9 @@ app.post('*', function (req, res) {
 });
 
 app.listen(8090);
+
+function parseErr(err) {
+  trerr = err.substring(0, err.lastIndexOf("\n"));
+  trerr = trerr.substring(trerr.lastIndexOf("\n") + 1);
+  return trerr;
+}

@@ -23,22 +23,18 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     dict["res"] = {}
     if (argv == 0):
         dict["head"]["type"] = "table"
-        dict["res"] = run.viewQueryResults(longitude, latitude, radiusMultiplier)
+        dict["res"] = parseQuery(run.viewQueryResults(longitude, latitude, radiusMultiplier))
     elif (argv == 1):
         dict["head"]["type"] = "table"
-        dict["res"] = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
+        dict["res"] = parseSpectra(run.viewSpectraResults(longitude, latitude, radiusMultiplier))
     elif (argv == 2):
         dict["res"] = run.recedingVelocity(longitude, latitude, radiusMultiplier)
     elif (argv == 3):
         dict["head"]["type"] = "num"
         dict["res"] = run.objectSpeedLightPercent(longitude, latitude, radiusMultiplier, int(targetID))
-        if (dict["res"] == -1):
-            dict["head"]["error"] = "TODO: error msg"
     elif (argv == 4): #lumDistance
         dict["head"]["type"] = "num units"
         dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
-        if (dict["res"] == -1):
-            dict["head"]["error"] = "TODO: error msg"
     elif (argv == 5):
         dict["res"] = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
     return dict
@@ -52,7 +48,7 @@ if (len(sys.argv) == 6):
     if (queryT > 0 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
-    ret = switch(143.50993, 55.239775, 12, 3, 1237654382516699587)
+    ret = switch(143.50993, 55.239775, 12, 0, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
 
 #print(ret)
