@@ -23,10 +23,14 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     dict["res"] = {}
     if (argv == 0):
         dict["head"]["type"] = "table"
-        dict["res"] = parseQuery(run.viewQueryResults(longitude, latitude, radiusMultiplier))
+        temp = run.viewQueryResults(longitude, latitude, radiusMultiplier)
+        dict["res"]["columns"] = temp.colnames
+        dict["res"]["data"] = str(temp.as_array().tolist())
     elif (argv == 1):
         dict["head"]["type"] = "table"
-        dict["res"] = parseSpectra(run.viewSpectraResults(longitude, latitude, radiusMultiplier))
+        temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
+        dict["res"]["columns"] = temp.colnames
+        dict["res"]["data"] = str(temp.as_array().tolist())
     elif (argv == 2):
         dict["res"] = run.recedingVelocity(longitude, latitude, radiusMultiplier)
     elif (argv == 3):
@@ -48,9 +52,8 @@ if (len(sys.argv) == 6):
     if (queryT > 0 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
-    ret = switch(143.50993, 55.239775, 12, 0, 1237654382516699587)
+    ret = switch(143.50993, 55.239775, 12, 1, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
 
-#print(ret)
 print(json.dumps(ret))
 sys.stdout.flush()
