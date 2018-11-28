@@ -49,7 +49,7 @@ ret["head"]["error"] = "query number not recognized"
 
 if (len(sys.argv) == 6):
     queryT = int(sys.argv[4])
-    if (queryT > 0 and queryT < 6):
+    if (queryT > -1 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
     ret = switch(143.50993, 55.239775, 12, 1, 1237654382516699587)

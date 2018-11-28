@@ -62,7 +62,7 @@ app.post('*', function (req, res) {
   PythonShell.run(pythonProcName, options, function (err, data) {
     if (err) {
       console.log('error on python process at ' + new Date().toString() + ': ' + err);
-      res.json({ head: { error: "python process exception: " + parseErr(err), }, res: {}, });
+      res.json({ head: { error: "python process exception: " + parseErr(str(err)), }, res: {}, });
     } else {
       res.json(JSON.parse(data));
       if (requestFeedback) console.log(req.method + " response at " + new Date().toString() + ": " + data.toString().substring(0, 100));
