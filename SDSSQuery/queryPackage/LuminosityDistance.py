@@ -11,7 +11,7 @@ class LuminosityDistance:
 
     """
     Luminosity  Distance constructor. Instantiates SDSSQuery class, query's object and gets
-    query results. Argument order latitude, longitude, num.
+    query results. Argument order longitude, latitude, num.
 
     @param param: latitude in decimal degree format.
     @param param: longitude in decimal degree format.

@@ -13,7 +13,7 @@ class SDSSQuery:
     """
     SDSS Query constructor. Sets up search area by user defined 
     latitude and longitute in decimal degree format, and search cone size.
-    Order of arguments latitude, longitude, and radiusMultiplier. 
+    Order of arguments longitude, latitude, and radiusMultiplier. 
     
     @param param: latitude in decimal degree format.
     @param param: longitude in decimal degree format.

@@ -2,7 +2,7 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 24 November 2018
+@change: 28 November 2018
 '''
 import numpy as np
 from matplotlib import pyplot as plt
@@ -12,7 +12,7 @@ class ObjectMagnitudes:
     
     """
     ObjectMagnitude constructor. Instantiates SDSSQuery class, runs spectra query
-    and get results. Argument order latitude, longitude, num.
+    and get results. Argument order longitude, latitude, num.
     
     @param param: latitude in decimal degree format.
     @param param: longitude in decimal degree format. 
@@ -31,9 +31,13 @@ class ObjectMagnitudes:
     @return: list of g filter values.
     """
     def getGFilter(self):
-        for i in range(0, len(self.result)):
-            self.gFilter.append(self.result[i]['modelMag_g'])
-        return self.gFilter
+        try:
+            for i in range(0, len(self.result)):
+                self.gFilter.append(self.result[i]['modelMag_g'])
+            return self.gFilter
+        
+        except:
+            return ValueError("No data found for G-Filter.")
     #End getGFilter function
     
     """
@@ -41,9 +45,13 @@ class ObjectMagnitudes:
     @return: list of r filter values.
     """
     def getRFilter(self):
-        for i in range(0, len(self.result)):
-            self.rFilter.append(self.result[i]['modelMag_r'])
-        return self.rFilter
+        try:
+            for i in range(0, len(self.result)):
+                self.rFilter.append(self.result[i]['modelMag_r'])
+            return self.rFilter
+        
+        except:
+            return ValueError("No data found for R-Filter.")
     #End getRFilter function
     
     """
