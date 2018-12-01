@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 26 November 2018
+@change: 30 November 2018
 '''
 import math
 import numpy as np
@@ -36,9 +36,12 @@ class RecedingVelocity:
     @return: list of object id's
     """
     def getID(self):
-        for i in range(0, len(self.result)):
-            self.objID.append(self.result[i]['objid'])
-        return self.objID
+        try:
+            for i in range(0, len(self.result)):
+                self.objID.append(self.result[i]['objid'])
+            return self.objID
+        except:
+            raise ValueError('ID data not found in query.')
     #End getID function
 
     """
@@ -46,9 +49,12 @@ class RecedingVelocity:
     @return: list of object redshifts.
     """
     def getRedshift(self):
-        for i in range(0, len(self.result)):
-            self.redshift.append(self.result[i]['z'])
-        return self.redshift
+        try:
+            for i in range(0, len(self.result)):
+                self.redshift.append(self.result[i]['z'])
+            return self.redshift
+        except:
+            raise ValueError('Redshift data not found in query.')
     #End getRedshift function
 
     """
@@ -74,6 +80,28 @@ class RecedingVelocity:
                 self.objectID.append(self.objID[i])
         return self.velocity
     #End computeVelocity function
+    
+    """
+    GetRA function goes through objectID list matching ra with current objectID.
+    @return: list containing ra's for computed object ID's. Otherwise returns ValueError.
+    """
+    def getRA(self):
+        try:
+            for i in range(0, len(self.objectID)):
+                self.ra.append(self.result[i]['ra'])
+            return self.ra
+        except:
+            raise ValueError('RA data not found in query.')
+    #End getRA function
+    
+    def getDec(self):
+        try:
+            for i in range(0, len(self.objectID)):
+                self.dec.append(self.result[i]['dec'])
+            return self.dec
+        except:
+            raise ValueError('Dec data not found in query.')
+    #End getDec function
 
     """
     Velocity Vs Speed of Light function finds how velocity of object is traveling
@@ -122,8 +150,9 @@ class RecedingVelocity:
         self.computeVelocity()
         self.getID()
         self.getRedshift()
-        #self.viewComputedVelocity()
-        #self.plotVelocity()
+        self.objectID
+        self.getRA()
+        self.getDec()
         return self
     #End runRecedingVelocity function
 

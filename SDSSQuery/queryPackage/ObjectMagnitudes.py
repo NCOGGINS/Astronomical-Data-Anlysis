@@ -2,7 +2,7 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 28 November 2018
+@change: 30 November 2018
 '''
 import numpy as np
 from matplotlib import pyplot as plt
@@ -37,7 +37,7 @@ class ObjectMagnitudes:
             return self.gFilter
         
         except:
-            return ValueError("No data found for G-Filter.")
+            raise ValueError("No data found for G-Filter.")
     #End getGFilter function
     
     """
@@ -51,8 +51,34 @@ class ObjectMagnitudes:
             return self.rFilter
         
         except:
-            return ValueError("No data found for R-Filter.")
+            raise ValueError("No data found for R-Filter.")
     #End getRFilter function
+    
+    """
+    GetObjectID function looks in query result and gets objID column.
+    @return: list of Object ID values. Otherwise returns ValueError.
+    """
+    def getObjectID(self):
+        try:
+            for i in range(0, len(self.result)):
+                self.objectID.append(self.result[i]['objID'])    
+            return self.objectID
+        except:
+            raise ValueError('No Data found for Object IDs')
+    #End getObjectID function
+    
+    """
+    GetObjectType function looks in query result and gets Type column.
+    @return: list of object types. Otherwise returns ValueError.
+    """
+    def getObjectType(self):
+        try:
+            for i in range(0, len(self.result)):
+                self.objectType.append(self.result[i]['type'])
+            return self.objectType
+        except:
+            raise ValueError('No Data found for Object Type')
+    #End getObjectType function
     
     """
     GetObjectColors function subtracts every value in g filter list from every value
@@ -89,9 +115,10 @@ class ObjectMagnitudes:
     Y-axis = g filter list.
     """   
     def runObjectMagnitudes(self):
-        #self.plotMagnitudes()
         self.getObjectColors()
         self.getGFilter()
+        self.getObjectID()
+        self.getObjectType()
         return self
     #End runObjectMagnitudes function    
             
