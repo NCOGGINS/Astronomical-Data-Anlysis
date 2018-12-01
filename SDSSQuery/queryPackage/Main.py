@@ -7,6 +7,7 @@ Created on Nov 16, 2018
 import sys
 import json
 from queryPackage.RunQuery import RunQuery
+import astropy
 
 """
 Switch function selects query/computation to perform by argument passed.
@@ -22,17 +23,25 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     dict["head"] = {}
     dict["res"] = {}
     if (argv == 0):
-        dict["head"]["type"] = "table"
         temp = run.viewQueryResults(longitude, latitude, radiusMultiplier)
-        dict["res"]["columns"] = temp.colnames
-        dict["res"]["data"] = str(temp.as_array().tolist())
-    elif (argv == 1):
         dict["head"]["type"] = "table"
-        temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
         dict["res"]["columns"] = temp.colnames
-        dict["res"]["data"] = str(temp.as_array().tolist())
+        dict["res"]["data"] = sterilize(decolumn(temp, temp.colnames))
+    elif (argv == 1):
+        temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
+        dict["head"]["type"] = "table"
+        dict["res"]["columns"] = temp.colnames
+        dict["res"]["data"] = sterilize(decolumn(temp, temp.colnames))
     elif (argv == 2):
-        dict["res"] = run.recedingVelocity(longitude, latitude, radiusMultiplier)
+        temp = run.recedingVelocity(longitude, latitude, radiusMultiplier)
+        dict["res"]["options"] = {}
+        dict["res"]["type"] = "table & scatterplot"
+        dict["res"]["options"]["misc"] = "highlight [Velocity > 30000]"
+        dict["res"]["options"]["x-axis"] = "Velocity";
+        dict["res"]["options"]["y-axis"] = "Redshift";
+        dict["res"]["options"]["e-axis"] = "Object ID";
+        dict["res"]["columns"] = ["Object ID", "Velocity", "Redshift"]
+        dict["res"]["data"] = sterilize([temp.objID, temp.velocity, temp.redshift])
     elif (argv == 3):
         dict["head"]["type"] = "num"
         dict["res"] = run.objectSpeedLightPercent(longitude, latitude, radiusMultiplier, int(targetID))
@@ -40,8 +49,31 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["head"]["type"] = "num units"
         dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
     elif (argv == 5):
-        dict["res"] = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
+        dict["res"]["type"] = "scatterplot"
+        temp = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
+        dict["res"]["columns"] = ["Object ID", "Object Color", "g Filter", "Object Type"]
+        dict["res"]["data"] = sterilize([temp.objectColor, temp.gFilter])
     return dict
+
+def decolumn(table, columns):
+    temp = []
+    for i in range(0, len(columns)):
+        temp.append(table[columns[i]].data.tolist())
+    return temp
+
+def sterilize(list):
+    for i in range(0, len(list)):
+        for j in range(0, len(list[i])):
+            try:
+                list[i][j] = str(list[i][j], 'utf-8')
+            except (TypeError, UnicodeDecodeError):
+                pass
+            try:
+                list[i][j] = '{:.10f}'.format(list[i][j]).rstrip('0').rstrip('.')
+            except ValueError:
+                pass
+            list[i][j] = str(list[i][j])
+    return list
 
 ret = {}
 ret["head"] = {}

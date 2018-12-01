@@ -80,7 +80,7 @@ class RecedingVelocity:
                 self.objectID.append(self.objID[i])
         return self.velocity
     #End computeVelocity function
-    
+
     """
     GetRA function goes through objectID list matching ra with current objectID.
     @return: list containing ra's for computed object ID's. Otherwise returns ValueError.
@@ -93,7 +93,7 @@ class RecedingVelocity:
         except:
             raise ValueError('RA data not found in query.')
     #End getRA function
-    
+
     def getDec(self):
         try:
             for i in range(0, len(self.objectID)):
@@ -119,7 +119,7 @@ class RecedingVelocity:
                     objectVelocity = self.velocity[i]
                     vPerSpeedOfLight = (objectVelocity / self.c) * 100
                     return vPerSpeedOfLight
-            
+
         else:
             raise ValueError(targetID, 'is not a valid object identifier.')
     #End velocityVsSpeedOfLight function
@@ -151,8 +151,8 @@ class RecedingVelocity:
         self.getID()
         self.getRedshift()
         self.objectID
-        self.getRA()
-        self.getDec()
+        #self.getRA()
+        #self.getDec()
         return self
     #End runRecedingVelocity function
 
