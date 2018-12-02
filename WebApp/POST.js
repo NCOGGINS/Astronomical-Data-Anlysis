@@ -41,7 +41,7 @@ function ajax() {
             console.log(xmlhttp.responseText);
             //document.getElementById("resultWindow").innerHTML = xmlhttp.responseText; //replace this line with what you want to do when the information is returned with a 200 (OK) code
 
-            var string = xmlhttp.responseText;
+            var string = JSON.parse(xmlhttp.responseText);
             if (string.head.type === "table") {
                 // get the reference for the body
                 var body = document.getElementsByTagName("body")[0];
