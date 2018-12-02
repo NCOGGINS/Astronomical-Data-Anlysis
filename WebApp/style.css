@@ -35,7 +35,7 @@ h1{
     display: block;
     background-color: whitesmoke;
     border-style: solid;
-    width: 300px;
-    margin-bottom: 5px;
+    width: auto;
+    margin-bottom: auto;
     text-align: center;
 }
