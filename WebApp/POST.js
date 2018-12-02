@@ -39,58 +39,18 @@ function ajax() {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             //console.log("It worked");
             console.log(xmlhttp.responseText);
-            //document.getElementById("resultWindow").innerHTML = xmlhttp.responseText; //replace this line with what you want to do when the information is returned with a 200 (OK) code
 
             var string = JSON.parse(xmlhttp.responseText);
-            if (string.head.type === "table") {
-                // get the reference for the body
-                var body = document.getElementsByTagName("body")[0];
+            var resultWindow = document.getElementById("resultWindow");
 
-                // creates a <table> element and a <tbody> element
-                var tbl = document.createElement("table");
-                var tblBody = document.createElement("tbody");
-
-                var cols = string.res.columns.length;
-                var rows = string.res.data[0].length;
-
-
-                //Create header row from column names
-                var row = document.createElement("tr");
-                for (var i = 0; i < cols; i++) {
-                    var cell = document.createElement("td");
-                    var cellText = document.createTextNode(string.res.columns[i]);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                }
-                tblBody.appendChild(row);
-
-                // creating all cells
-                for (var i = 1; i < rows + 1; i++) {
-                    // creates a table row
-                    var row = document.createElement("tr");
-
-                    for (var j = 0; j < cols; j++) {
-                        // Create a <td> element and a text node, make the text
-                        // node the contents of the <td>, and put the <td> at
-                        // the end of the table row
-                        var cell = document.createElement("td");
-                        var cellText = document.createTextNode(string.res.data[j][i - 1]);
-                        cell.appendChild(cellText);
-                        row.appendChild(cell);
-                    }
-
-                    // add the row to the end of the table body
-                    tblBody.appendChild(row);
-                }
-
-                // put the <tbody> in the <table>
-                tbl.appendChild(tblBody);
-                // appends <table> into <body>
-                body.appendChild(tbl);
-                // sets the border attribute of tbl to 2;
-                tbl.setAttribute("border", "2");
-
-                document.getElementById("resultWindow").appendChild(tbl);
+            if (string.head.type.includes("table")) {
+              makeTable(string, resultWindow);
+            }
+            if (string.head.type.includes("num")) {
+              makeNum(string, resultWindow);
+            }
+            if (string.head.type.includes("scatterplot")) {
+              makeScatterplot(string, resultWindow);
             }
         }
     };
@@ -100,4 +60,64 @@ function ajax() {
     xmlhttp.setRequestHeader("Content-Type", "application/json"); //the server will not understand without it
     xmlhttp.send(JSON.stringify(formdata));
     return false;
+}
+
+
+function makeTable(string, resultWindow) {
+  // get the reference for the body
+  var body = document.getElementsByTagName("body")[0];
+
+  // creates a <table> element and a <tbody> element
+  var tbl = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  var cols = string.res.columns.length;
+  var rows = string.res.data[0].length;
+
+
+  //Create header row from column names
+  var row = document.createElement("tr");
+  for (var i = 0; i < cols; i++) {
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(string.res.columns[i]);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+  }
+  tblBody.appendChild(row);
+
+  // creating all cells
+  for (var i = 1; i < rows + 1; i++) {
+      // creates a table row
+      var row = document.createElement("tr");
+
+      for (var j = 0; j < cols; j++) {
+          // Create a <td> element and a text node, make the text
+          // node the contents of the <td>, and put the <td> at
+          // the end of the table row
+          var cell = document.createElement("td");
+          var cellText = document.createTextNode(string.res.data[j][i - 1]);
+          cell.appendChild(cellText);
+          row.appendChild(cell);
+      }
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+  }
+
+  // put the <tbody> in the <table>
+  tbl.appendChild(tblBody);
+  // appends <table> into <body>
+  body.appendChild(tbl);
+  // sets the border attribute of tbl to 2;
+  tbl.setAttribute("border", "2");
+
+  resultWindow.appendChild(tbl);
+}
+
+function makeNum(string, resultWindow) {
+
+}
+
+function makeScatterplot(string, resultWindow) {
+
 }
