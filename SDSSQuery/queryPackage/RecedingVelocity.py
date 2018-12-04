@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 30 November 2018
+@change: 3 December 2018
 '''
 import math
 import numpy as np
@@ -49,13 +49,10 @@ class RecedingVelocity:
     @return: list of object redshifts.
     """
     def getRedshift(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.redshift.append(self.result[i]['z'])
-            return self.redshift
-        except:
-            raise ValueError('Redshift data not found in query.')
-    #End getRedshift function
+        for i in range(0, len(self.result)):
+            self.redshift.append(self.result[i]['z'])
+        return self.redshift
+        #End getRedshift function
 
     """
     Compute Velocity function goes through object id and redshift lists and calculates
@@ -86,21 +83,15 @@ class RecedingVelocity:
     @return: list containing ra's for computed object ID's. Otherwise returns ValueError.
     """
     def getRA(self):
-        try:
-            for i in range(0, len(self.objectID)):
-                self.ra.append(self.result[i]['ra'])
-            return self.ra
-        except:
-            raise ValueError('RA data not found in query.')
+        for i in range(0, len(self.objectID)):
+            self.ra.append(self.result[i]['ra'])
+        return self.ra
     #End getRA function
 
     def getDec(self):
-        try:
-            for i in range(0, len(self.objectID)):
-                self.dec.append(self.result[i]['dec'])
-            return self.dec
-        except:
-            raise ValueError('Dec data not found in query.')
+        for i in range(0, len(self.objectID)):
+            self.dec.append(self.result[i]['dec'])
+        return self.dec
     #End getDec function
 
     """
@@ -151,8 +142,8 @@ class RecedingVelocity:
         self.getID()
         self.getRedshift()
         self.objectID
-        #self.getRA()
-        #self.getDec()
+        self.getRA()
+        self.getDec()
         return self
     #End runRecedingVelocity function
 

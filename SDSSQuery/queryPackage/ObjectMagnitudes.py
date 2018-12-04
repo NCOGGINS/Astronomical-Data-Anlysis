@@ -2,7 +2,7 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 30 November 2018
+@change: 3 December 2018
 '''
 import numpy as np
 from matplotlib import pyplot as plt
@@ -31,13 +31,9 @@ class ObjectMagnitudes:
     @return: list of g filter values.
     """
     def getGFilter(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.gFilter.append(self.result[i]['modelMag_g'])
-            return self.gFilter
-        
-        except:
-            raise ValueError("No data found for G-Filter.")
+        for i in range(0, len(self.result)):
+            self.gFilter.append(self.result[i]['modelMag_g'])
+        return self.gFilter
     #End getGFilter function
     
     """
@@ -45,13 +41,9 @@ class ObjectMagnitudes:
     @return: list of r filter values.
     """
     def getRFilter(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.rFilter.append(self.result[i]['modelMag_r'])
-            return self.rFilter
-        
-        except:
-            raise ValueError("No data found for R-Filter.")
+        for i in range(0, len(self.result)):
+            self.rFilter.append(self.result[i]['modelMag_r'])
+        return self.rFilter
     #End getRFilter function
     
     """
@@ -59,12 +51,9 @@ class ObjectMagnitudes:
     @return: list of Object ID values. Otherwise returns ValueError.
     """
     def getObjectID(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.objectID.append(self.result[i]['objID'])    
-            return self.objectID
-        except:
-            raise ValueError('No Data found for Object IDs')
+        for i in range(0, len(self.result)):
+            self.objectID.append(self.result[i]['objID'])    
+        return self.objectID
     #End getObjectID function
     
     """
@@ -72,12 +61,9 @@ class ObjectMagnitudes:
     @return: list of object types. Otherwise returns ValueError.
     """
     def getObjectType(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.objectType.append(self.result[i]['type'])
-            return self.objectType
-        except:
-            raise ValueError('No Data found for Object Type')
+        for i in range(0, len(self.result)):
+            self.objectType.append(self.result[i]['type'])
+        return self.objectType
     #End getObjectType function
     
     """
