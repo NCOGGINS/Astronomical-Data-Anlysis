@@ -68,6 +68,10 @@ def sterilize(list):
     for i in range(0, len(list)):
         for j in range(0, len(list[i])):
             try:
+                list[i][j] = list[i][j].value
+            except (TypeError, ValueError):
+                pass
+            try:
                 list[i][j] = str(list[i][j], 'utf-8')
             except (TypeError, UnicodeDecodeError):
                 pass

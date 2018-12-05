@@ -9,16 +9,16 @@ Project URL: http://66.191.217.115:8090/ -->
         <title>Astronomical Data Analysis</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script type='text/javascript' src="https://d3js.org/d3.v5.min.js"></script>
         <script src="POST.js"></script>
     </head>
     <body>
         <h1>Astronomical Data Analysis</h1>
         <div id="window">
+          <div id="sidePanel">
             <form name="inputs" onsubmit="return ajax();" method="post">
                 <br>
                 <div id="queries">
-                    List of available queries: <br>
                     <select name="queryList">
                         <option> Please select the desired query</option>
                         <option> view query results </option>
@@ -33,27 +33,24 @@ Project URL: http://66.191.217.115:8090/ -->
                 <br>
 
                 <div id="inputFields">
-                    Latitude (between -90 and 90): <br>
+                    Latitude <br /> <small>(between -90 and 90)</small> <br>
                     <input type="number" name="latitude" placeholder="55.239775" min="-90" max="90" step="0.000001">
-                    <br>
-                    <br>
-                    Longitude (between -180 and 180): <br>
+                    <br> <br />
+                    Longitude <br /> <small>(between -180 and 180)</small> <br>
                     <input type="number" name="longitude" placeholder="143.50993" min="-180" max="180" step="0.000001">
-                    <br>
-                    <br>
-                    Arcmin Radius Multiplier (between 0 and 20): <br>
+                    <br><br />
+                    Arcmin Radius Multiplier <br /> <small>(between 0 and 20)</small> <br>
                     <input type="number" name="radius" placeholder="3" min="0" max="99" step="1">
-                    <br>
-                    <br>
-                    Object ID: <br>
+                    <br><br />
+                    Object ID <br>
                     <input class="input" type="text" name="ID" placeholder="1237654382516699587" size="19">
-                    <br>
-                    <br>
+                    <br><br />
                 </div>
                 <input type="submit" value="Run Query">
             </form>
-            <div id="resultWindow">
-            </div>
+          </div>
+          <div id="resultWindow">
+          </div>
         </div>
     </body>
 </html>

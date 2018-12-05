@@ -2,13 +2,11 @@
 Last Modified 2 December 2018
 Project URL: http://66.191.217.115:8090/ */
 
-form{
-    margin-left: auto;
-    margin-right: auto;
+form {
     display: block;
     background-color: whitesmoke;
     border-style: solid;
-    width: 400px;
+    width: 300px;
     margin-bottom: 5px;
     text-align: center;
     padding: 20px;
@@ -17,41 +15,47 @@ form{
     height: 500px;
 }
 
-body{
+body {
     background-color: gainsboro;
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
-#inputs{
+#inputs {
     width: 400px;
 }
 
-input{
+input {
     text-align: center;
     height: 30px;
     margin: 3px;
     font-size: 18px;
 }
 
-h1{
+tr:hover {
+  background-color: sandybrown;
+}
+
+h1 {
     text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     margin: auto;
     margin-bottom: 20px;
-    width: 900px;
+    width: 800px;
     border: 5px dotted white;
 }
 
 #window {
+    margin: auto;
+    width: min-content;
+    min-width: 880px;
     display: flex;
+    justify-content: flex-start;
 }
 
 #resultWindow {
-    margin-left: auto;
-    margin-right: auto;
     display: block;
     background-color: whitesmoke;
     border-style: solid;

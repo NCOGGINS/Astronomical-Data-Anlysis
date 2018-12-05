@@ -46,21 +46,21 @@ function ajax() {
             if (string.head.error) { //if head.error exists, an error occurred
               makeError(string, resultWindow);
             } else if (string.head.type) {
-              if (string.head.type.includes("table")) {
-                makeTable(string, resultWindow);
-              }
               if (string.head.type.includes("num")) {
                 makeNum(string, resultWindow);
               }
               if (string.head.type.includes("scatterplot")) {
                 makeScatterplot(string, resultWindow);
               }
+              if (string.head.type.includes("table")) {
+                makeTable(string, resultWindow);
+              }
             }
         }
     };
 
-    //xmlhttp.open("POST", "http://66.191.217.115:8090", true); /*this allows you to post the server from your own browser, in combination with CORS-disabled chrome shortcut "C:\path\to\chrome.exe" --disable-web-security --user-data-dir="C:/ChromeDevSession" */
-    xmlhttp.open("POST", "", true); //open POST request
+    xmlhttp.open("POST", "http://66.191.217.115:8090", true); /*this allows you to post the server from your own browser, in combination with CORS-disabled chrome shortcut "C:\path\to\chrome.exe" --disable-web-security --user-data-dir="C:/ChromeDevSession" */
+    //xmlhttp.open("POST", "", true); //open POST request
     xmlhttp.setRequestHeader("Content-Type", "application/json"); //the server will not understand without it
     xmlhttp.send(JSON.stringify(formdata));
     return false;
@@ -137,19 +137,19 @@ function makeScatterplot(string, resultWindow) {
 
   //http://bl.ocks.org/bunkat/2595950
 
-    var margin = {top: 20, right: 15, bottom: 60, left: 60}
-      , width = 600 - margin.left - margin.right
+    var margin = {top: 15, right: 15, bottom: 30, left: 30}
+      , width = 800 - margin.left - margin.right
       , height = 600 - margin.top - margin.bottom;
 
-    var x = d3.scale.linear()
-              .domain([0, d3.max(data[xAxisIndex])])
+    var x = d3.scaleLinear()
+              .domain([d3.min(data[xAxisIndex]), d3.max(data[xAxisIndex])])
               .range([ 0, width ]);
 
-    var y = d3.scale.linear()
-    	      .domain([0, d3.max(data[yAxisIndex])])
+    var y = d3.scaleLinear()
+    	      .domain([d3.min(data[yAxisIndex]), d3.max(data[yAxisIndex])])
     	      .range([ height, 0 ]);
 
-    var chart = resultWindow
+    var chart = d3.select('#' + resultWindow.id)
 	.append('svg:svg')
 	.attr('width', width + margin.right + margin.left)
 	.attr('height', height + margin.top + margin.bottom)
@@ -162,9 +162,7 @@ function makeScatterplot(string, resultWindow) {
 	.attr('class', 'main')
 
     // draw the x axis
-    var xAxis = d3.svg.axis()
-	.scale(x)
-	.orient('bottom');
+    var xAxis = d3.axisBottom(x);
 
     main.append('g')
 	.attr('transform', 'translate(0,' + height + ')')
@@ -172,9 +170,7 @@ function makeScatterplot(string, resultWindow) {
 	.call(xAxis);
 
     // draw the y axis
-    var yAxis = d3.svg.axis()
-	.scale(y)
-	.orient('left');
+    var yAxis = d3.axisLeft(y);
 
     main.append('g')
 	.attr('transform', 'translate(0,0)')
@@ -183,11 +179,37 @@ function makeScatterplot(string, resultWindow) {
 
     var g = main.append("svg:g");
 
-    g.selectAll("scatter-dots")
-      .data(data)
-      .enter().append("svg:circle")
-          .attr("cx", function (d,i) { return x(data[xAxisIndex][i]); } )
-          .attr("cy", function (d,i) { return y(data[yAxisIndex][i]); } )
-          .attr("r", 8);
+    var tdata = transposeArray(data);
 
+    g.selectAll("scatter-dots")
+      .data(tdata)
+      .enter().append("svg:circle")
+          .attr("cx", function (d) { return x(d[xAxisIndex]); } )
+          .attr("cy", function (d) { return y(d[yAxisIndex]); } )
+          .attr("r", 5);
+
+}
+
+function transposeArray(array){
+    var newArray = [];
+    for (var i = 0; i < array.length; i++) {
+      for (var j = 0; j < array[i].length; j++) {
+        if (!newArray[j]) {
+          newArray.push([]);
+        }
+        newArray[j].push(array[i][j]);
+      }
+    }
+    var tArray = [];
+    var maxlen = 0;
+    for (var i = 0; i < newArray.length; i++) {
+      if (newArray[i].length > maxlen) {
+        maxlen = newArray[i].length;
+        tArray = [];
+      }
+      if (newArray[i].length == maxlen) {
+        tArray.push(newArray[i]);
+      }
+    }
+    return tArray;
 }
