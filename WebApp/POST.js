@@ -43,13 +43,16 @@ function ajax() {
             var string = JSON.parse(xmlhttp.responseText);
             var resultWindow = document.getElementById("resultWindow");
 
-            if (string.head.type.includes("table")) {
+            if (string.head.error) { //if head.error exists, an error occurred
+              makeError(string, resultWindow);
+            }
+            else if (string.head.type.includes("table")) {
               makeTable(string, resultWindow);
             }
-            if (string.head.type.includes("num")) {
+            else if (string.head.type.includes("num")) {
               makeNum(string, resultWindow);
             }
-            if (string.head.type.includes("scatterplot")) {
+            else if (string.head.type.includes("scatterplot")) {
               makeScatterplot(string, resultWindow);
             }
         }
@@ -112,6 +115,10 @@ function makeTable(string, resultWindow) {
   tbl.setAttribute("border", "2");
 
   resultWindow.appendChild(tbl);
+}
+
+function makeError(string, resultWindow) {
+
 }
 
 function makeNum(string, resultWindow) {
