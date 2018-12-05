@@ -35,7 +35,7 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     elif (argv == 2):
         temp = run.recedingVelocity(longitude, latitude, radiusMultiplier)
         dict["res"]["options"] = {}
-        dict["res"]["type"] = "table & scatterplot"
+        dict["head"]["type"] = "table & scatterplot"
         dict["res"]["options"]["misc"] = "highlight [Velocity > 30000]"
         dict["res"]["options"]["xAxis"] = "Velocity"
         dict["res"]["options"]["yAxis"] = "Redshift"
@@ -49,7 +49,7 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["head"]["type"] = "num units"
         dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
     elif (argv == 5):
-        dict["res"]["type"] = "table & scatterplot"
+        dict["head"]["type"] = "table & scatterplot"
         temp = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
         dict["res"]["columns"] = ["Object Color", "g Filter"]
         dict["res"]["data"] = sterilize([temp.objectColor, temp.gFilter])
