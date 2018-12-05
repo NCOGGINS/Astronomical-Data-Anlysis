@@ -76,7 +76,7 @@ function makeTable(string, resultWindow) {
   var tblBody = document.createElement("tbody");
 
   var cols = string.res.columns.length;
-  var rows = string.res.data[0].length;
+  var rows = string.res.data.length;
 
 
   //Create header row from column names
@@ -99,7 +99,7 @@ function makeTable(string, resultWindow) {
           // node the contents of the <td>, and put the <td> at
           // the end of the table row
           var cell = document.createElement("td");
-          var cellText = document.createTextNode(string.res.data[j][i - 1]);
+          var cellText = document.createTextNode(string.res.data[i - 1][j]);
           cell.appendChild(cellText);
           row.appendChild(cell);
       }
@@ -142,11 +142,11 @@ function makeScatterplot(string, resultWindow) {
       , height = 600 - margin.top - margin.bottom;
 
     var x = d3.scaleLinear()
-              .domain([d3.min(data[xAxisIndex]), d3.max(data[xAxisIndex])])
+              .domain([d3.min(data, function(d) { return d[xAxisIndex]; }), d3.max(data, function(d) { return d[xAxisIndex]; })])
               .range([ 0, width ]);
 
     var y = d3.scaleLinear()
-    	      .domain([d3.min(data[yAxisIndex]), d3.max(data[yAxisIndex])])
+    	      .domain([d3.min(data, function(d) { return d[yAxisIndex]; }), d3.max(data, function(d) { return d[yAxisIndex]; })])
     	      .range([ height, 0 ]);
 
     var chart = d3.select('#' + resultWindow.id)
@@ -188,28 +188,4 @@ function makeScatterplot(string, resultWindow) {
           .attr("cy", function (d) { return y(d[yAxisIndex]); } )
           .attr("r", 5);
 
-}
-
-function transposeArray(array){
-    var newArray = [];
-    for (var i = 0; i < array.length; i++) {
-      for (var j = 0; j < array[i].length; j++) {
-        if (!newArray[j]) {
-          newArray.push([]);
-        }
-        newArray[j].push(array[i][j]);
-      }
-    }
-    var tArray = [];
-    var maxlen = 0;
-    for (var i = 0; i < newArray.length; i++) {
-      if (newArray[i].length > maxlen) {
-        maxlen = newArray[i].length;
-        tArray = [];
-      }
-      if (newArray[i].length == maxlen) {
-        tArray.push(newArray[i]);
-      }
-    }
-    return tArray;
 }

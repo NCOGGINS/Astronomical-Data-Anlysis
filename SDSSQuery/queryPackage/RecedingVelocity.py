@@ -82,12 +82,14 @@ class RecedingVelocity:
     @return: list containing ra's for computed object ID's. Otherwise returns ValueError.
     """
     def getRA(self):
+        self.ra = []
         for i in range(0, len(self.objectID)):
             self.ra.append(self.result[i]['ra'])
         return self.ra
     #End getRA function
 
     def getDec(self):
+        self.dec = []
         for i in range(0, len(self.objectID)):
             self.dec.append(self.result[i]['dec'])
         return self.dec
@@ -145,14 +147,12 @@ class RecedingVelocity:
         #self.getDec()
         return self
     #End runRecedingVelocity function
-    
+
     def writeData(self):
         self.computeVelocity()
-        data = (Table([self.getRA(), self.getDec(), self.objectID], 
-                names=['RA', 'Dec', 'Object ID']))
-        
-        ascii.write(data, 'DataFile.dat', format='fixed_width', overwrite=True)
-        return self
+        table = (Table([self.objectID, self.getRA(), self.getDec(), self.redshift, self.velocity],
+                names=['Object ID', 'RA', 'Dec', 'Redshift', 'Velocity']))
+        return table
     #End writeData function
 
     """

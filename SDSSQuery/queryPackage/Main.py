@@ -26,22 +26,22 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         temp = run.viewQueryResults(longitude, latitude, radiusMultiplier)
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
-        dict["res"]["data"] = sterilize(decolumn(temp, temp.colnames))
+        dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 1):
         temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
-        dict["res"]["data"] = sterilize(decolumn(temp, temp.colnames))
+        dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 2):
-        temp = run.recedingVelocity(longitude, latitude, radiusMultiplier)
+        temp = run.objectVelocityData(longitude, latitude, radiusMultiplier)
         dict["res"]["options"] = {}
         dict["head"]["type"] = "table & scatterplot"
         dict["res"]["options"]["misc"] = "highlight [Velocity > 30000]"
         dict["res"]["options"]["xAxis"] = "Velocity"
         dict["res"]["options"]["yAxis"] = "Redshift"
         dict["res"]["options"]["iAxis"] = "Object ID"
-        dict["res"]["columns"] = ["Object ID", "Velocity", "Redshift"]
-        dict["res"]["data"] = sterilize([temp.objID, temp.velocity, temp.redshift])
+        dict["res"]["columns"] = temp.colnames
+        dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 3):
         dict["head"]["type"] = "num"
         dict["res"] = run.objectSpeedLightPercent(longitude, latitude, radiusMultiplier, int(targetID))
@@ -58,25 +58,23 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["options"]["yAxis"] = "g Filter"
     return dict
 
-def decolumn(table, columns):
-    temp = []
-    for i in range(0, len(columns)):
-        temp.append(table[columns[i]].data.tolist())
-    return temp
+def listify(table):
+    return table.as_array().tolist()
 
-def sterilize(list):
-    for i in range(0, len(list)):
-        for j in range(0, len(list[i])):
+def sterilize(table):
+    for i in range(0, len(table)):
+        table[i] = list(table[i])
+        for j in range(0, len(table[i])):
             try:
-                list[i][j] = str(list[i][j], 'utf-8')
+                table[i][j] = str(table[i][j], 'utf-8')
             except (TypeError, UnicodeDecodeError):
                 pass
             try:
-                list[i][j] = '{:.10f}'.format(list[i][j]).rstrip('0').rstrip('.')
+                table[i][j] = '{:.10f}'.format(table[i][j]).rstrip('0').rstrip('.')
             except ValueError:
                 pass
-            list[i][j] = str(list[i][j])
-    return list
+            table[i][j] = str(table[i][j])
+    return table
 
 ret = {}
 ret["head"] = {}
@@ -87,7 +85,7 @@ if (len(sys.argv) == 6):
     if (queryT > -1 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
-    ret = switch(143.50993, 55.239775, 12, 1, 1237654382516699587)
+    ret = switch(143.50993, 55.239775, 12, 2, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
 
 print(json.dumps(ret))
