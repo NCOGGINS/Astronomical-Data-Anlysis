@@ -180,8 +180,8 @@ function makeScatterplot(string, resultWindow) {
         .attr("y1", 0)
         .attr("x2", x(300000))
         .attr("y2", height)
-        .attr("stroke-width", 2)
-        .attr("stroke", "black");
+        .attr("stroke-width", 1)
+        .attr("stroke", "red");
     }
 
     // draw the y axis
