@@ -23,9 +23,10 @@ class RunQuery:
     def recedingVelocity(self, longitude, latitude, radiusMultiplier):
         self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
         return self.result.runRecedingVelocity()
-    
+
     def objectVelocityData(self, longitude, latitude, radiusMultiplier):
         self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
+        self.result.runRecedingVelocity()
         return self.result.writeData()
 
     def objectSpeedLightPercent(self, longitude, latitude, radiusMultiplier, targetID):
