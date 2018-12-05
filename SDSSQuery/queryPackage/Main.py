@@ -37,9 +37,9 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["options"] = {}
         dict["res"]["type"] = "table & scatterplot"
         dict["res"]["options"]["misc"] = "highlight [Velocity > 30000]"
-        dict["res"]["options"]["x-axis"] = "Velocity";
-        dict["res"]["options"]["y-axis"] = "Redshift";
-        dict["res"]["options"]["e-axis"] = "Object ID";
+        dict["res"]["options"]["xAxis"] = "Velocity"
+        dict["res"]["options"]["yAxis"] = "Redshift"
+        dict["res"]["options"]["iAxis"] = "Object ID"
         dict["res"]["columns"] = ["Object ID", "Velocity", "Redshift"]
         dict["res"]["data"] = sterilize([temp.objID, temp.velocity, temp.redshift])
     elif (argv == 3):
@@ -49,10 +49,12 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["head"]["type"] = "num units"
         dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
     elif (argv == 5):
-        dict["res"]["type"] = "scatterplot"
+        dict["res"]["type"] = "table & scatterplot"
         temp = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
-        dict["res"]["columns"] = ["Object ID", "Object Color", "g Filter", "Object Type"]
+        dict["res"]["columns"] = ["Object Color", "g Filter"]
         dict["res"]["data"] = sterilize([temp.objectColor, temp.gFilter])
+        dict["res"]["options"]["xAxis"] = "Object Color"
+        dict["res"]["options"]["yAxis"] = "g Filter"
     return dict
 
 def decolumn(table, columns):

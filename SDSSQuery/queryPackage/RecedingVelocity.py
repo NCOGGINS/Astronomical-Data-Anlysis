@@ -141,9 +141,9 @@ class RecedingVelocity:
         self.computeVelocity()
         self.getID()
         self.getRedshift()
-        self.objectID
-        self.getRA()
-        self.getDec()
+        #self.objectID
+        #self.getRA()
+        #self.getDec()
         return self
     #End runRecedingVelocity function
 
