@@ -75,7 +75,7 @@ class RecedingVelocity:
                 velocity = hubbleConstant * hubbleDistance
                 self.velocity.append(velocity)
                 self.objectID.append(self.objID[i])
-        return self.velocity
+        return self.velocity, self.objectID
     #End computeVelocity function
 
     """
