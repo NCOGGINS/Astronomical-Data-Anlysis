@@ -45,15 +45,16 @@ function ajax() {
 
             if (string.head.error) { //if head.error exists, an error occurred
               makeError(string, resultWindow);
-            }
-            else if (string.head.type.includes("table")) {
-              makeTable(string, resultWindow);
-            }
-            else if (string.head.type.includes("num")) {
-              makeNum(string, resultWindow);
-            }
-            else if (string.head.type.includes("scatterplot")) {
-              makeScatterplot(string, resultWindow);
+            } else if (string.head.type) {
+              if (string.head.type.includes("table")) {
+                makeTable(string, resultWindow);
+              }
+              if (string.head.type.includes("num")) {
+                makeNum(string, resultWindow);
+              }
+              if (string.head.type.includes("scatterplot")) {
+                makeScatterplot(string, resultWindow);
+              }
             }
         }
     };
