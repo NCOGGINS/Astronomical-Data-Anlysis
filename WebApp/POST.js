@@ -135,6 +135,10 @@ function makeScatterplot(string, resultWindow) {
     var iAxisIndex = string.res.columns.indexOf(string.res.options.iAxis);
   }
 
+  data = floatify(data, xAxisIndex);
+  data = floatify(data, yAxisIndex);
+
+
   //http://bl.ocks.org/bunkat/2595950
 
     var margin = {top: 15, right: 15, bottom: 30, left: 30}
@@ -169,6 +173,17 @@ function makeScatterplot(string, resultWindow) {
 	.attr('class', 'main axis date')
 	.call(xAxis);
 
+
+  if (string.res.options && string.res.options.misc && string.res.options.misc.includes("spd line")) {
+    main.append("line")
+        .attr("x1", x(300000))
+        .attr("y1", 0)
+        .attr("x2", x(300000))
+        .attr("y2", height)
+        .attr("stroke-width", 2)
+        .attr("stroke", "black");
+    }
+
     // draw the y axis
     var yAxis = d3.axisLeft(y);
 
@@ -184,6 +199,13 @@ function makeScatterplot(string, resultWindow) {
       .enter().append("svg:circle")
           .attr("cx", function (d) { return x(d[xAxisIndex]); } )
           .attr("cy", function (d) { return y(d[yAxisIndex]); } )
-          .attr("r", 5);
+          .attr("r", 3);
 
+}
+
+function floatify(list, index) {
+  for (var i = 0; i < list.length; i++) {
+    list[i][index] = parseFloat(list[i][index]);
+  }
+  return list;
 }
