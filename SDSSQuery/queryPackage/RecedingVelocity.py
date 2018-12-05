@@ -147,8 +147,8 @@ class RecedingVelocity:
     #End runRecedingVelocity function
     
     def writeData(self):
-        self.runRecedingVelocity()
-        data = (Table([self.ra, self.dec, self.objectID], 
+        self.computeVelocity()
+        data = (Table([self.getRA(), self.getDec(), self.objectID], 
                 names=['RA', 'Dec', 'Object ID']))
         
         ascii.write(data, 'DataFile.dat', format='fixed_width', overwrite=True)
