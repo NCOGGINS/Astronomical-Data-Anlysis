@@ -6,6 +6,8 @@ Created on Oct 25, 2018
 '''
 import math
 import numpy as np
+from astropy.io import ascii
+from astropy.table import Table
 from matplotlib import pyplot as plt
 from astropy.cosmology import WMAP9 as cosmo
 from queryPackage.SDSSQuery import SDSSQuery
@@ -146,6 +148,16 @@ class RecedingVelocity:
         #self.getDec()
         return self
     #End runRecedingVelocity function
+    
+    def writeData(self):
+        self.runRecedingVelocity()
+        data = (Table([self.ra, self.dec, self.objectID, self.redshift], 
+                names=['RA', 'Dec', 'Object ID', 'Redshift']))
+        
+        ascii.write(data, 'DataFile.dat', format='fixed_width', overwrite=True)
+        
+        return self
+    #End writeData function
 
     """
     RunSpeedLightPercent function calls velocityVsSpeedOfLight function and runs it.
