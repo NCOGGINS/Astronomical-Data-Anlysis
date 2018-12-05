@@ -2,7 +2,7 @@
 Created on Oct 25, 2018
 
 @author: Matthew Peek
-@change: 3 December 2018
+@change: 5 December 2018
 '''
 import math
 import numpy as np
@@ -38,12 +38,9 @@ class RecedingVelocity:
     @return: list of object id's
     """
     def getID(self):
-        try:
-            for i in range(0, len(self.result)):
-                self.objID.append(self.result[i]['objid'])
-            return self.objID
-        except:
-            raise ValueError('ID data not found in query.')
+        for i in range(0, len(self.result)):
+            self.objID.append(self.result[i]['objid'])
+        return self.objID
     #End getID function
 
     """
@@ -155,7 +152,6 @@ class RecedingVelocity:
                 names=['RA', 'Dec', 'Object ID', 'Redshift']))
         
         ascii.write(data, 'DataFile.dat', format='fixed_width', overwrite=True)
-        
         return self
     #End writeData function
 

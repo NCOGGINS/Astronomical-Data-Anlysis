@@ -2,7 +2,7 @@
 Created on Nov 7, 2018
 
 @author: Matthew Peek
-@change: 24 November 2018
+@change: 5 December 2018
 '''
 from queryPackage.SDSSQuery import SDSSQuery
 from queryPackage.ObjectMagnitudes import ObjectMagnitudes
@@ -23,6 +23,10 @@ class RunQuery:
     def recedingVelocity(self, longitude, latitude, radiusMultiplier):
         self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
         return self.result.runRecedingVelocity()
+    
+    def objectVelocityData(self, longitude, latitude, radiusMultiplier):
+        self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
+        return self.result.writeData()
 
     def objectSpeedLightPercent(self, longitude, latitude, radiusMultiplier, targetID):
         self.result = RecedingVelocity(longitude, latitude, radiusMultiplier)
