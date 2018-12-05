@@ -179,10 +179,8 @@ function makeScatterplot(string, resultWindow) {
 
     var g = main.append("svg:g");
 
-    var tdata = transposeArray(data);
-
     g.selectAll("scatter-dots")
-      .data(tdata)
+      .data(data)
       .enter().append("svg:circle")
           .attr("cx", function (d) { return x(d[xAxisIndex]); } )
           .attr("cy", function (d) { return y(d[yAxisIndex]); } )
