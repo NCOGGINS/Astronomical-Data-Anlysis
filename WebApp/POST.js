@@ -43,14 +43,18 @@ function ajax() {
             var string = JSON.parse(xmlhttp.responseText);
             var resultWindow = document.getElementById("resultWindow");
 
-            if (string.head.type.includes("table")) {
-              makeTable(string, resultWindow);
-            }
-            if (string.head.type.includes("num")) {
-              makeNum(string, resultWindow);
-            }
-            if (string.head.type.includes("scatterplot")) {
-              makeScatterplot(string, resultWindow);
+            if (string.head.error) { //if head.error exists, an error occurred
+              makeError(string, resultWindow);
+            } else if (string.head.type) {
+              if (string.head.type.includes("table")) {
+                makeTable(string, resultWindow);
+              }
+              if (string.head.type.includes("num")) {
+                makeNum(string, resultWindow);
+              }
+              if (string.head.type.includes("scatterplot")) {
+                makeScatterplot(string, resultWindow);
+              }
             }
         }
     };
@@ -114,10 +118,76 @@ function makeTable(string, resultWindow) {
   resultWindow.appendChild(tbl);
 }
 
+function makeError(string, resultWindow) {
+
+}
+
 function makeNum(string, resultWindow) {
 
 }
 
 function makeScatterplot(string, resultWindow) {
+
+  var data = string.res.data; //do something with string
+  var xAxisIndex = string.res.columns.indexOf(string.res.options.xAxis);
+  var yAxisIndex = string.res.columns.indexOf(string.res.options.yAxis);
+  if (string.res.options.iAxis) {
+    var iAxisIndex = string.res.columns.indexOf(string.res.options.iAxis);
+  }
+
+  //http://bl.ocks.org/bunkat/2595950
+
+    var margin = {top: 20, right: 15, bottom: 60, left: 60}
+      , width = 600 - margin.left - margin.right
+      , height = 600 - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+              .domain([0, d3.max(data[xAxisIndex])])
+              .range([ 0, width ]);
+
+    var y = d3.scale.linear()
+    	      .domain([0, d3.max(data[yAxisIndex])])
+    	      .range([ height, 0 ]);
+
+    var chart = resultWindow
+	.append('svg:svg')
+	.attr('width', width + margin.right + margin.left)
+	.attr('height', height + margin.top + margin.bottom)
+	.attr('class', 'chart')
+
+    var main = chart.append('g')
+	.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+	.attr('width', width)
+	.attr('height', height)
+	.attr('class', 'main')
+
+    // draw the x axis
+    var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient('bottom');
+
+    main.append('g')
+	.attr('transform', 'translate(0,' + height + ')')
+	.attr('class', 'main axis date')
+	.call(xAxis);
+
+    // draw the y axis
+    var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient('left');
+
+    main.append('g')
+	.attr('transform', 'translate(0,0)')
+	.attr('class', 'main axis date')
+	.call(yAxis);
+
+    var g = main.append("svg:g");
+
+    g.selectAll("scatter-dots")
+      .data(data)
+      .enter().append("svg:circle")
+          .attr("cx", function (d,i) { return x(data[xAxisIndex][i]); } )
+          .attr("cy", function (d,i) { return y(data[yAxisIndex][i]); } )
+          .attr("r", 8);
 
 }

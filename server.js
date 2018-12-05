@@ -5,11 +5,10 @@ pythonProcName - path to python process relative to server.js
 staticLocation - path to index.html relative to server.js
 requestFeedback - whether the server logs to console each time it receieves a request
  */
- //var pythonPath = 'C:/Users/avzkd/Anaconda3/envs/python36/python.exe'; /* dev computer python interpreter location */
- var pythonPath = '/home/server/anaconda3/envs/astro/bin/python';        /* server python interpreter location */
- var pythonProcName = "SDSSQuery/queryPackage/Main.py";                  /* "Test/SDSS.py" for Test, "SDSSQuery/queryPackage/Main.py" otherwise */
- var staticLocation = "WebApp";                                          /* "Test" for Test, "WebApp" otherwise */
- var requestFeedback = true;                                             /* true if want to log to node terminal */
+ var pythonPath = '/home/server/anaconda3/envs/astro/bin/python';         /* server python interpreter location */
+ var pythonProcName = "SDSSQuery/queryPackage/Main.py";                   /* "Test/SDSS.py" for Test, "SDSSQuery/queryPackage/Main.py" otherwise */
+ var staticLocation = "WebApp";                                           /* "Test" for Test, "WebApp" otherwise */
+ var requestFeedback = true;                                              /* true if want to log to node terminal */
  /**/
 
 /*
