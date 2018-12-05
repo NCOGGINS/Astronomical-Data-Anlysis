@@ -33,7 +33,7 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(decolumn(temp, temp.colnames))
     elif (argv == 2):
-        temp = run.objectVelocityData(longitude, latitude, radiusMultiplier)
+        temp = run.recedingVelocity(longitude, latitude, radiusMultiplier)
         dict["res"]["options"] = {}
         dict["head"]["type"] = "table & scatterplot"
         dict["res"]["options"]["misc"] = "highlight [Velocity > 30000]"
