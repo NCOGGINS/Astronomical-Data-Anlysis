@@ -53,6 +53,7 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         temp = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
         dict["res"]["columns"] = ["Object Color", "g Filter"]
         dict["res"]["data"] = sterilize([temp.objectColor, temp.gFilter])
+        dict["res"]["options"] = {}
         dict["res"]["options"]["xAxis"] = "Object Color"
         dict["res"]["options"]["yAxis"] = "g Filter"
     return dict
