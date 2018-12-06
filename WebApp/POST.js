@@ -176,10 +176,10 @@ function makeScatterplot(string, resultWindow) {
 
   if (string.res.options && string.res.options.misc && string.res.options.misc.includes("spd line")) {
     main.append("line")
-        .attr("x1", x(300000))
-        .attr("y1", 0)
-        .attr("x2", x(300000))
-        .attr("y2", height)
+        .attr("x1", 0)
+        .attr("y1", y(300000))
+        .attr("x2", width)
+        .attr("y2", y(300000))
         .attr("stroke-width", 1)
         .attr("stroke", "red");
     }
