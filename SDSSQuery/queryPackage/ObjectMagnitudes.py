@@ -2,9 +2,11 @@
 Created on Nov 8, 2018
 
 @author: Matthew Peek
-@change: 3 December 2018
+@change: 5 December 2018
 '''
 import numpy as np
+from astropy.io import ascii
+from astropy.table import Table
 from matplotlib import pyplot as plt
 from queryPackage.SDSSQuery import SDSSQuery
 
@@ -107,6 +109,15 @@ class ObjectMagnitudes:
         #self.getObjectType()
         return self
     #End runObjectMagnitudes function
+    
+    def writeData(self):  
+        self.getObjectColors()
+        data = (Table([self.getObjectID(), self.gFilter, self.objectColor, self.getObjectType()],
+                names=['Object ID', 'G-Filter', 'Object Colors', 'Object Type']))
+        
+        ascii.write(data, 'MagnitudeData.dat', format='fixed_width', overwrite=True)
+    #End writeData function
+    
 
 """
 Test ObjectMagnitudes implementation

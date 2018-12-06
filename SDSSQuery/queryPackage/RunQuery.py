@@ -39,6 +39,10 @@ class RunQuery:
     def plotMagnitudes(self, latitude, longitude, radiusMultiplier):
         self.result = ObjectMagnitudes(latitude, longitude, radiusMultiplier)
         return self.result.runObjectMagnitudes()
+    
+    def magnitudeData(self, longitude, latitude, radiusMultiplier):
+        self.result = ObjectMagnitudes(longitude, latitude, radiusMultiplier)
+        return self.result.writeData()
 
     def plotHRDiagram(self, latitude, longitude, radiusMultiplier):
         self.result = HRDiagram(latitude, longitude, radiusMultiplier)
