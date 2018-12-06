@@ -248,6 +248,8 @@ function clearHighlight() {
       .style("fill-opacity", 0.75)
       .style("fill", "black")
       .attr("r", 5);
+  d3.selectAll(".row")
+      .style("background-color", "auto");
 }
 
 function floatify(list, index) {
