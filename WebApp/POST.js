@@ -131,8 +131,14 @@ function makeScatterplot(string, resultWindow) {
   var data = string.res.data; //do something with string
   var xAxisIndex = string.res.columns.indexOf(string.res.options.xAxis);
   var yAxisIndex = string.res.columns.indexOf(string.res.options.yAxis);
+  var iAxis = [];
   if (string.res.options.iAxis) {
-    var iAxisIndex = string.res.columns.indexOf(string.res.options.iAxis);
+    for (var i = 0; i < string.res.options.iAxis.length) {
+      var temp = [];
+      temp.append(string.res.options.iAxis);
+      temp.append(string.res.columns.indexOf(string.res.options.iAxis));
+      iAxis.append(temp);
+    }
   }
 
   data = floatify(data, xAxisIndex);
@@ -146,32 +152,32 @@ function makeScatterplot(string, resultWindow) {
       , height = 600 - margin.top - margin.bottom;
 
     var x = d3.scaleLinear()
-              .domain([d3.min(data, function(d) { return d[xAxisIndex]; }), d3.max(data, function(d) { return d[xAxisIndex]; })])
-              .range([ 0, width ]);
+                .domain([d3.min(data, function(d) { return d[xAxisIndex]; }), d3.max(data, function(d) { return d[xAxisIndex]; })])
+                .range([ 0, width ]);
 
     var y = d3.scaleLinear()
-    	      .domain([d3.min(data, function(d) { return d[yAxisIndex]; }), d3.max(data, function(d) { return d[yAxisIndex]; })])
-    	      .range([ height, 0 ]);
+    	          .domain([d3.min(data, function(d) { return d[yAxisIndex]; }), d3.max(data, function(d) { return d[yAxisIndex]; })])
+    	          .range([ height, 0 ]);
 
     var chart = d3.select('#' + resultWindow.id)
-	.append('svg:svg')
-	.attr('width', width + margin.right + margin.left)
-	.attr('height', height + margin.top + margin.bottom)
-	.attr('class', 'chart')
+	                 .append('svg:svg')
+	                  .attr('width', width + margin.right + margin.left)
+	                  .attr('height', height + margin.top + margin.bottom)
+	                  .attr('class', 'chart')
 
     var main = chart.append('g')
-	.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-	.attr('width', width)
-	.attr('height', height)
-	.attr('class', 'main')
+	                   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+	                   .attr('width', width)
+	                   .attr('height', height)
+	                   .attr('class', 'main')
 
     // draw the x axis
     var xAxis = d3.axisBottom(x);
 
     main.append('g')
-	.attr('transform', 'translate(0,' + height + ')')
-	.attr('class', 'main axis date')
-	.call(xAxis);
+	       .attr('transform', 'translate(0,' + height + ')')
+	       .attr('class', 'main axis date')
+	       .call(xAxis);
 
 
   if (string.res.options && string.res.options.misc && string.res.options.misc.includes("spd line")) {
@@ -188,19 +194,34 @@ function makeScatterplot(string, resultWindow) {
     var yAxis = d3.axisLeft(y);
 
     main.append('g')
-	.attr('transform', 'translate(0,0)')
-	.attr('class', 'main axis date')
-	.call(yAxis);
+	      .attr('transform', 'translate(0,0)')
+	      .attr('class', 'main axis date')
+	      .call(yAxis);
 
     var g = main.append("svg:g");
+
+    var tip = d3.tip()
+                  .attr("class", "d3-tip")
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    var str = "";
+                    for (var i = 0; i < iAxis.length; i++) {
+                      str += iAxis[i][0] + ": " + d[iAxis[i][1]] + "<br />";
+                    }
+                    return str;
+                  });
+
+    svg.call(tip);
 
     g.selectAll("scatter-dots")
       .data(data)
       .enter().append("svg:circle")
-          .attr("cx", function (d) { return x(d[xAxisIndex]); } )
-          .attr("cy", function (d) { return y(d[yAxisIndex]); } )
-          .attr("r", 5)
-          .style("fill-opacity", 0.5);
+              .attr("cx", function (d) { return x(d[xAxisIndex]); } )
+              .attr("cy", function (d) { return y(d[yAxisIndex]); } )
+              .attr("r", 5)
+              .style("fill-opacity", 0.5)
+              .on("mouseover", tip.show)
+              .on("mouseout", tip.hide);
 
 }
 

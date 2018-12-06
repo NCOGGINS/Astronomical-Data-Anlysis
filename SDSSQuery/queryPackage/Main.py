@@ -39,7 +39,7 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["options"]["misc"] = "spd line"
         dict["res"]["options"]["xAxis"] = "Redshift"
         dict["res"]["options"]["yAxis"] = "Velocity"
-        dict["res"]["options"]["iAxis"] = "Object ID"
+        dict["res"]["options"]["iAxis"] = ["Object ID"]
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 3):
@@ -54,6 +54,8 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["options"] = {}
         dict["res"]["options"]["xAxis"] = "Object Color"
         dict["res"]["options"]["yAxis"] = "G-Filter (Magnitude)"
+        dict["res"]["options"]["iAxis"] = ["Object ID", "Object Type"]
+        dict["res"]["options"]["misc"] = "obj type icon"
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
     return dict
