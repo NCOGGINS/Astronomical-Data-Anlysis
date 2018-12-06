@@ -133,7 +133,7 @@ function makeScatterplot(string, resultWindow) {
   var yAxisIndex = string.res.columns.indexOf(string.res.options.yAxis);
   var iAxis = [];
   if (string.res.options.iAxis) {
-    for (var i = 0; i < string.res.options.iAxis.length) {
+    for (var i = 0; i < string.res.options.iAxis.length; i++) {
       var temp = [];
       temp.append(string.res.options.iAxis);
       temp.append(string.res.columns.indexOf(string.res.options.iAxis));
