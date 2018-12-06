@@ -3,6 +3,9 @@
 //Project URL: http://66.191.217.115:8090
 
 /*Test Object: Post Requests*/
+
+var objIDIndex = 0;
+
 function ajax() {
     if (document.forms["inputs"]["queryList"].value === "view query results") {
         var query = 0;
@@ -51,6 +54,7 @@ function ajax() {
               }
               if (string.head.type.includes("scatterplot")) {
                 makeScatterplot(string, resultWindow);
+                clearHighlight();
               }
               if (string.head.type.includes("table")) {
                 makeTable(string, resultWindow);
@@ -93,7 +97,11 @@ function makeTable(string, resultWindow) {
   for (var i = 1; i < rows + 1; i++) {
       // creates a table row
       var row = document.createElement("tr");
-
+      row.classList.add("id" + string.res.data[i-1][objIDIndex]);
+      row.classList.add("row");
+      row.onclick = function() {
+        document.forms["inputs"]["ID"].value = this.classList.item(0).substring(2);
+      }
       for (var j = 0; j < cols; j++) {
           // Create a <td> element and a text node, make the text
           // node the contents of the <td>, and put the <td> at
@@ -135,9 +143,9 @@ function makeScatterplot(string, resultWindow) {
   if (string.res.options.iAxis) {
     for (var i = 0; i < string.res.options.iAxis.length; i++) {
       var temp = [];
-      temp.append(string.res.options.iAxis);
-      temp.append(string.res.columns.indexOf(string.res.options.iAxis));
-      iAxis.append(temp);
+      temp.push(string.res.options.iAxis[i]);
+      temp.push(string.res.columns.indexOf(string.res.options.iAxis[i]));
+      iAxis.push(temp);
     }
   }
 
@@ -206,23 +214,40 @@ function makeScatterplot(string, resultWindow) {
                   .html(function(d) {
                     var str = "";
                     for (var i = 0; i < iAxis.length; i++) {
-                      str += iAxis[i][0] + ": " + d[iAxis[i][1]] + "<br />";
+                      str += iAxis[i][0].substring(7) + ": " + d[iAxis[i][1]] + "<br />";
                     }
+                    str += "[" + d[xAxisIndex] + ", " + d[yAxisIndex] + "]";
                     return str;
                   });
 
-    svg.call(tip);
+    main.call(tip);
 
     g.selectAll("scatter-dots")
       .data(data)
       .enter().append("svg:circle")
               .attr("cx", function (d) { return x(d[xAxisIndex]); } )
               .attr("cy", function (d) { return y(d[yAxisIndex]); } )
-              .attr("r", 5)
-              .style("fill-opacity", 0.5)
+              .attr("class", function(d) { return "id" + d[0] + " dot"; } )
               .on("mouseover", tip.show)
-              .on("mouseout", tip.hide);
+              .on("mouseout", tip.hide)
+              .on("click", highlight);
 
+}
+
+function highlight() {
+  d3.selectAll("." + this.classList.item(0) + ".dot")
+      .style("fill-opacity", 1)
+      .attr("r", 9)
+      .style("fill", "orange");
+  d3.selectAll("." + this.classList.item(0) + ".row")
+      .style("background-color", "orange");
+}
+
+function clearHighlight() {
+  d3.selectAll(".dot")
+      .style("fill-opacity", 0.75)
+      .style("fill", "black")
+      .attr("r", 5);
 }
 
 function floatify(list, index) {

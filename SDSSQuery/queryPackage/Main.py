@@ -24,11 +24,21 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     dict["res"] = {}
     if (argv == 0):
         temp = run.viewQueryResults(longitude, latitude, radiusMultiplier)
+        newOrder = ['objid']
+        orderList = temp.colnames
+        orderList.remove('objid')
+        newOrder.extend(orderList)
+        temp = temp[newOrder] #five lines for what could be one. How pythonic.
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 1):
         temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
+        newOrder = ['objID']
+        orderList = temp.colnames
+        orderList.remove('objID')
+        newOrder.extend(orderList)
+        temp = temp[newOrder] #five lines for what could be one. How pythonic.
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
@@ -87,7 +97,7 @@ if (len(sys.argv) == 6):
     if (queryT > -1 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
-    ret = switch(143.50993, 55.239775, 12, 5, 1237654382516699587)
+    ret = switch(143.50993, 55.239775, 12, 0, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
 
 print(json.dumps(ret))

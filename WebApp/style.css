@@ -47,6 +47,11 @@ h1 {
     border: 5px dotted white;
 }
 
+.d3-tip {
+  background-color: dimgrey;
+  text-align: center;
+}
+
 #window {
     margin: auto;
     width: min-content;
