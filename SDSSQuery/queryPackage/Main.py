@@ -50,12 +50,12 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"] = str(run.lumDistance(longitude, latitude, radiusMultiplier, int(targetID)))
     elif (argv == 5):
         dict["head"]["type"] = "table & scatterplot"
-        temp = run.plotMagnitudes(longitude, latitude, radiusMultiplier)
-        dict["res"]["columns"] = ["Object Color", "g Filter"]
-        dict["res"]["data"] = sterilize([temp.objectColor, temp.gFilter])
+        temp = run.magnitudeData(longitude, latitude, radiusMultiplier)
         dict["res"]["options"] = {}
         dict["res"]["options"]["xAxis"] = "Object Color"
-        dict["res"]["options"]["yAxis"] = "g Filter"
+        dict["res"]["options"]["yAxis"] = "G-Filter (Magnitude)"
+        dict["res"]["columns"] = temp.colnames
+        dict["res"]["data"] = sterilize(listify(temp))
     return dict
 
 def listify(table):
@@ -85,7 +85,7 @@ if (len(sys.argv) == 6):
     if (queryT > -1 and queryT < 6):
         ret = switch(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), queryT, sys.argv[5])
 else:
-    ret = switch(143.50993, 55.239775, 12, 2, 1237654382516699587)
+    ret = switch(143.50993, 55.239775, 12, 5, 1237654382516699587)
     ret["head"]["error"] = "default query: unexpected number of arguments"
 
 print(json.dumps(ret))

@@ -53,6 +53,7 @@ class ObjectMagnitudes:
     @return: list of Object ID values. Otherwise returns ValueError.
     """
     def getObjectID(self):
+        self.objectID = []
         for i in range(0, len(self.result)):
             self.objectID.append(self.result[i]['objID'])
         return self.objectID
@@ -63,6 +64,7 @@ class ObjectMagnitudes:
     @return: list of object types. Otherwise returns ValueError.
     """
     def getObjectType(self):
+        self.objectType = []
         for i in range(0, len(self.result)):
             self.objectType.append(self.result[i]['type'])
         return self.objectType
@@ -109,17 +111,15 @@ class ObjectMagnitudes:
         #self.getObjectType()
         return self
     #End runObjectMagnitudes function
-    
-    def writeData(self):  
+
+    def writeData(self):
         self.getObjectColors()
         data = (Table([self.getObjectID(), self.gFilter, self.objectColor, self.getObjectType()],
-                names=['Object ID', 'G-Filter', 'Object Colors', 'Object Type']))
-        
-        ascii.write(data, 'MagnitudeData.dat', format='fixed_width', overwrite=True)
-        
-        return self
+                names=['Object ID', 'G-Filter (Magnitude)', 'Object Color', 'Object Type']))
+        #ascii.write(data, 'MagnitudeData.dat', format='fixed_width', overwrite=True)
+        return data
     #End writeData function
-    
+
 
 """
 Test ObjectMagnitudes implementation

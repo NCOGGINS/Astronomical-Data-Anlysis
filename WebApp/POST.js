@@ -141,7 +141,7 @@ function makeScatterplot(string, resultWindow) {
 
   //http://bl.ocks.org/bunkat/2595950
 
-    var margin = {top: 15, right: 15, bottom: 30, left: 30}
+    var margin = {top: 15, right: 15, bottom: 30, left: 50}
       , width = 800 - margin.left - margin.right
       , height = 600 - margin.top - margin.bottom;
 
@@ -199,7 +199,8 @@ function makeScatterplot(string, resultWindow) {
       .enter().append("svg:circle")
           .attr("cx", function (d) { return x(d[xAxisIndex]); } )
           .attr("cy", function (d) { return y(d[yAxisIndex]); } )
-          .attr("r", 3);
+          .attr("r", 5)
+          .style("fill-opacity", 0.5);
 
 }
 
