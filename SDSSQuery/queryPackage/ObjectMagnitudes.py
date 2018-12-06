@@ -116,6 +116,8 @@ class ObjectMagnitudes:
                 names=['Object ID', 'G-Filter', 'Object Colors', 'Object Type']))
         
         ascii.write(data, 'MagnitudeData.dat', format='fixed_width', overwrite=True)
+        
+        return self
     #End writeData function
     
 
