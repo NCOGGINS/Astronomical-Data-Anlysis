@@ -1,8 +1,8 @@
 '''
 Created on Nov 16, 2018
 
-@author: Matthew Peek
-@change: 18 November 2018
+@author: Matthew Peek, KateLynn Pullen
+@change: 12/4/2018
 '''
 import sys
 import json
@@ -10,35 +10,37 @@ from queryPackage.RunQuery import RunQuery
 import astropy
 
 """
-Switch function selects query/computation to perform by argument passed.
-@param param: int latitude
-@param param: int longitude
-@param param: int radiusMultipler
-@param param: int argument that instructs what query/computation to perform
-@param param: Default int targetID, if empty default is None. Otherwise int is passed to function call.
+Switch function selects query/computation to perform by argument passed,
+adds additional information to pass along to the client-side javascript,
+and performs any necessary clean-up to easily translate into JSON.
+@param latitude: int latitude
+@param longitude: int longitude
+@param radiusMultiplier: int radiusMultipler
+@param argv: int argument that instructs what query/computation to perform
+@param targetID: Default int targetID, if empty default is None. Otherwise int is passed to function call.
 """
 def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
     run = RunQuery()
-    dict = {}
+    dict = {} #initializes dict for JSON return
     dict["head"] = {}
     dict["res"] = {}
     if (argv == 0):
         temp = run.viewQueryResults(longitude, latitude, radiusMultiplier)
-        newOrder = ['objid']
-        orderList = temp.colnames
-        orderList.remove('objid')
-        newOrder.extend(orderList)
-        temp = temp[newOrder] #five lines for what could be one. How pythonic.
+        newOrder = ['objid']                #### Reorders table to be objid 0th
+        orderList = temp.colnames              #    by creating new order of
+        orderList.remove('objid')              #    columns and then assigning
+        newOrder.extend(orderList)             #    a new table to temp with
+        temp = temp[newOrder]               ####    that order
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
     elif (argv == 1):
         temp = run.viewSpectraResults(longitude, latitude, radiusMultiplier)
-        newOrder = ['objID']
-        orderList = temp.colnames
-        orderList.remove('objID')
-        newOrder.extend(orderList)
-        temp = temp[newOrder] #five lines for what could be one. How pythonic.
+        newOrder = ['objID']                #### Reorders table to be objID 0th
+        orderList = temp.colnames              #    by creating new order of
+        orderList.remove('objID')              #    columns and then assigning
+        newOrder.extend(orderList)             #    a new table to temp with
+        temp = temp[newOrder]               ####    that order
         dict["head"]["type"] = "table"
         dict["res"]["columns"] = temp.colnames
         dict["res"]["data"] = sterilize(listify(temp))
@@ -70,9 +72,21 @@ def switch(longitude, latitude, radiusMultiplier, argv, targetID=None):
         dict["res"]["data"] = sterilize(listify(temp))
     return dict
 
+
+"""
+Turns a table into a np array and then into a list
+@param table: Table table
+@return: list representation of table
+"""
 def listify(table):
     return table.as_array().tolist()
 
+"""
+Takes a list representation of a table and iterates it, formatting numbers and
+decoding utf-8 coded strings. Prep for JSON encoding.
+@param list: list table
+@return: list
+"""
 def sterilize(table):
     for i in range(0, len(table)):
         table[i] = list(table[i])
