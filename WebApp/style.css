@@ -1,18 +1,18 @@
 /*By: Nathan Coggins, Matthew Peek and KateLynn Pullen
-Last Modified 2 December 2018
+Last Modified 8 December 2018
 Project URL: http://66.191.217.115:8090/ */
 
 form {
     display: block;
     background-color: whitesmoke;
     border-style: solid;
-    width: 300px;
+    width: auto;
     margin-bottom: 5px;
     text-align: center;
     padding: 20px;
     font-family: sans-serif;
     font-size: 20px;
-    height: 520px;
+    height: auto;
 }
 
 body {
