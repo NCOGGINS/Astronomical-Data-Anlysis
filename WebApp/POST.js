@@ -127,7 +127,7 @@ function makeTable(string, resultWindow) {
 }
 
 function makeError(string, resultWindow) {
-
+    document.getElementById("resultWindow").innerHTML += string.head.error.toString();
 }
 
 function makeNum(string, resultWindow) {
