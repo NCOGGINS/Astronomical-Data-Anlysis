@@ -1,5 +1,5 @@
 <!--By: Nathan Coggins, Matthew Peek and KateLynn Pullen
-Last Modified 2 December 2018
+Last Modified 8 December 2018
 Project URL: http://66.191.217.115:8090/ -->
 <!DOCTYPE html>
 <html>
@@ -41,7 +41,7 @@ Project URL: http://66.191.217.115:8090/ -->
                     <input type="number" name="longitude" placeholder="143.50993" min="-180" max="180" step="0.000001">
                     <br><br />
                     Arcmin Radius Multiplier <br /> <small>(between 0 and 20)</small> <br>
-                    <input type="number" name="radius" placeholder="3" min="0" max="99" step="1">
+                    <input type="number" name="radius" placeholder="20" min="0" max="99" step="1">
                     <br><br />
                     Object ID <br>
                     <input class="input" type="text" name="ID" placeholder="1237654382516699587" size="19">
@@ -51,6 +51,10 @@ Project URL: http://66.191.217.115:8090/ -->
             </form>
           </div>
           <div id="resultWindow">
+              <div>
+              <input type="submit" value="Clear Results">
+              <input type="submit" value="Clear Highlights" onclick="clearHighlight()">
+              </div>
           </div>
         </div>
     </body>
