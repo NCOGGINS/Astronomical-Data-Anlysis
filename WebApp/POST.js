@@ -6,25 +6,11 @@
 
 var objIDIndex = 0;
 
+/*
+
+ */
 function ajax() {
-    if (document.forms["inputs"]["queryList"].value === "View query results") {
-        var query = 0;
-    } else if (document.forms["inputs"]["queryList"].value === "View spectra results") {
-        var query = 1;
-    } else if (document.forms["inputs"]["queryList"].value === "Receding velocity") {
-        var query = 2;
-    } else if (document.forms["inputs"]["queryList"].value === "Object speed light percentage (EXPERIMENTAL FEATURE)") {
-        var query = 3;
-    } else if (document.forms["inputs"]["queryList"].value === "Luminosity distance (EXPERIMENTAL FEATURE)") {
-        var query = 4;
-    } else if (document.forms["inputs"]["queryList"].value === "Plot magnitudes") {
-        var query = 5;
-    } else {
-        console.log("Not a query!");
-        var query = -1;
-    }
-
-
+    var query = document.forms["inputs"]["queryList"].value;
     var latitude = document.forms["inputs"]["latitude"].value;
     var longitude = document.forms["inputs"]["longitude"].value;
     var number = document.forms["inputs"]["radius"].value;
@@ -40,7 +26,6 @@ function ajax() {
 
     xmlhttp.onreadystatechange = function () { //onreadystatechange property fires each time the state changes, must be set to a function
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-            //console.log("It worked");
             console.log(xmlhttp.responseText);
 
             var string = JSON.parse(xmlhttp.responseText);
@@ -54,7 +39,6 @@ function ajax() {
                 }
                 if (string.head.type.includes("scatterplot")) {
                     makeScatterplot(string, resultWindow);
-                    clearHighlight();
                 }
                 if (string.head.type.includes("table")) {
                     makeTable(string, resultWindow);
@@ -127,11 +111,11 @@ function makeTable(string, resultWindow) {
 }
 
 function makeError(string, resultWindow) {
-    document.getElementById("resultWindow").innerHTML += string.head.error.toString();
+    alert(string.head.error);
 }
 
 function makeNum(string, resultWindow) {
-
+  alert(string.res.data);
 }
 
 function makeScatterplot(string, resultWindow) {
@@ -242,28 +226,31 @@ function makeScatterplot(string, resultWindow) {
             .attr("class", function (d) {
                 return "id" + d[0] + " dot";
             })
+            .style("fill-opacity", 0.75)
+            .attr("r", 5)
+            .style("fill", "black")
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide)
-            .on("click", highlight);
+            .on("click", highlightToggle);
 
 }
 
-function highlight() {
-    d3.selectAll("." + this.classList.item(0) + ".dot")
-            .style("fill-opacity", 1)
-            .attr("r", 9)
-            .style("fill", "orange");
-    d3.selectAll("." + this.classList.item(0) + ".row")
-            .style("background-color", "orange");
-}
-
-function clearHighlight() {
-    d3.selectAll(".dot")
-            .style("fill-opacity", 0.75)
-            .style("fill", "black")
-            .attr("r", 5);
-    d3.selectAll(".row")
-            .style("background-color", "auto");
+function highlightToggle() {
+    if (d3.select(this).attr("r") == 9) {
+      d3.selectAll("." + this.classList.item(0) + ".dot")
+              .style("fill-opacity", 0.75)
+              .attr("r", 5)
+              .style("fill", "black");
+      d3.selectAll("." + this.classList.item(0) + ".row")
+              .style("background-color", "whitesmoke");
+    } else {
+      d3.selectAll("." + this.classList.item(0) + ".dot")
+              .style("fill-opacity", 1)
+              .attr("r", 9)
+              .style("fill", "orange");
+      d3.selectAll("." + this.classList.item(0) + ".row")
+              .style("background-color", "orange");
+    }
 }
 
 function floatify(list, index) {
