@@ -218,6 +218,19 @@ function makeScatterplot(string, resultWindow) {
 
     var g = main.append("svg:g");
 
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height - 6)
+        .text(string.res.columns[xAxisIndex]);
+
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text(string.res.columns[yAxisIndex]);
+
     //construct tooltip
     var tip = d3.tip()
             .attr("class", "d3-tip")
