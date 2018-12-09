@@ -7,7 +7,7 @@
 var objIDIndex = 0;
 
 /*
-
+Called when the submit button for the form is clicked. Handles sending/receiving data.
  */
 function ajax() {
     var query = document.forms["inputs"]["queryList"].value;
@@ -47,14 +47,18 @@ function ajax() {
         }
     };
 
-    xmlhttp.open("POST", "http://66.191.217.115:8090", true); /*this allows you to post the server from your own browser, in combination with CORS-disabled chrome shortcut "C:\path\to\chrome.exe" --disable-web-security --user-data-dir="C:/ChromeDevSession" */
-    //xmlhttp.open("POST", "", true); //open POST request
+    //xmlhttp.open("POST", "http://66.191.217.115:8090", true); /*this allows you to post the server from your own browser, in combination with CORS-disabled chrome shortcut "C:\path\to\chrome.exe" --disable-web-security --user-data-dir="C:/ChromeDevSession" */
+    xmlhttp.open("POST", "", true); //open POST request
     xmlhttp.setRequestHeader("Content-Type", "application/json"); //the server will not understand without it
     xmlhttp.send(JSON.stringify(formdata));
     return false;
 }
 
-
+/*
+Constructs a table from the response JSON, appends to resultWindow
+@param string: response JSON, corresponds to string in ajax()
+@param resultWindow: DOM element of div where results will be posted
+ */
 function makeTable(string, resultWindow) {
     // get the reference for the body
     var body = document.getElementsByTagName("body")[0];
@@ -81,8 +85,10 @@ function makeTable(string, resultWindow) {
     for (var i = 1; i < rows + 1; i++) {
         // creates a table row
         var row = document.createElement("tr");
+        //classlists for scatterplot highlight feature
         row.classList.add("id" + string.res.data[i - 1][objIDIndex]);
         row.classList.add("row");
+        //add function that fills ID field with clicked ID
         row.onclick = function () {
             document.forms["inputs"]["ID"].value = this.classList.item(0).substring(2);
         }
@@ -110,17 +116,32 @@ function makeTable(string, resultWindow) {
     resultWindow.appendChild(tbl);
 }
 
+/*
+Alerts an error
+@param string: response JSON, corresponds to string in ajax()
+@param resultWindow: DOM element of div where results would be posted if not alert
+ */
 function makeError(string, resultWindow) {
     alert(string.head.error);
 }
 
+/*
+Alerts a single numerical response (Object ID queries)
+@param string: response JSON, corresponds to string in ajax()
+@param resultWindow: DOM element of div where results would be posted if not alert
+ */
 function makeNum(string, resultWindow) {
   alert(string.res.data);
 }
 
+/*
+Creates scatterplot from the response data, appends to resultWindow
+@param string: response JSON, corresponds to string in ajax()
+@param resultWindow: DOM element of div where results will be posted
+ */
 function makeScatterplot(string, resultWindow) {
 
-    var data = string.res.data; //do something with string
+    var data = string.res.data;
     var xAxisIndex = string.res.columns.indexOf(string.res.options.xAxis);
     var yAxisIndex = string.res.columns.indexOf(string.res.options.yAxis);
     var iAxis = [];
@@ -135,9 +156,6 @@ function makeScatterplot(string, resultWindow) {
 
     data = floatify(data, xAxisIndex);
     data = floatify(data, yAxisIndex);
-
-
-    //http://bl.ocks.org/bunkat/2595950
 
     var margin = {top: 15, right: 15, bottom: 30, left: 50}
     , width = 800 - margin.left - margin.right
@@ -179,7 +197,7 @@ function makeScatterplot(string, resultWindow) {
             .attr('class', 'main axis date')
             .call(xAxis);
 
-
+            //draw line at 300,000 if comparison to speed of light is requested in the response data
     if (string.res.options && string.res.options.misc && string.res.options.misc.includes("spd line")) {
         main.append("line")
                 .attr("x1", 0)
@@ -200,6 +218,7 @@ function makeScatterplot(string, resultWindow) {
 
     var g = main.append("svg:g");
 
+    //construct tooltip
     var tip = d3.tip()
             .attr("class", "d3-tip")
             .offset([-10, 0])
@@ -235,6 +254,12 @@ function makeScatterplot(string, resultWindow) {
 
 }
 
+/*
+Switches all objects with "id[this ID NUMBER] dot" and "id[this ID NUMBER] row" to their highlighted
+or unhighlighted forms, dependent on whether the original element clicked is currently
+highlighted or not
+@param this: hidden self pass from onclick
+ */
 function highlightToggle() {
     if (d3.select(this).attr("r") == 9) {
       d3.selectAll("." + this.classList.item(0) + ".dot")
@@ -253,6 +278,12 @@ function highlightToggle() {
     }
 }
 
+/*
+Parses every index'th field in a list of lists into a float. Used to ensure d3 can
+parse max, min, x, and y locations properly.
+@param list: list of lists
+@param index: index to floatify
+ */
 function floatify(list, index) {
     for (var i = 0; i < list.length; i++) {
         list[i][index] = parseFloat(list[i][index]);
@@ -260,6 +291,9 @@ function floatify(list, index) {
     return list;
 }
 
+/*
+Deletes all elements inside of resultWindow
+ */
 function clearResults() {
     document.getElementById("resultWindow").innerHTML = "";
 }
